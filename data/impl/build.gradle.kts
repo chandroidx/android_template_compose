@@ -11,7 +11,6 @@ android {
 dependencies {
   implementation(projects.data.api)
   implementation(projects.data.network.api)
-  runtimeOnly(projects.data.network.impl)
 
   implementation(libs.kotlinx.serialization)
 }
