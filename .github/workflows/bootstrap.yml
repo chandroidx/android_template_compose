@@ -1,0 +1,54 @@
+name: Bootstrap
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  bootstrap:
+    if: github.repository != 'chandroidx/android_template_compose'
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Align Gradle root project name with repository
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          echo "Repository name: $REPO_NAME"
+          
+          perl -pi -e 's/rootProject.name = ".*"/rootProject.name = "'"$REPO_NAME"'"/' settings.gradle.kts
+          perl -pi -e 's/rootProject.name = ".*"/rootProject.name = "'"$REPO_NAME"'"/' build-logic/settings.gradle.kts
+          
+          git add settings.gradle.kts
+          git add build-logic/settings.gradle.kts
+          
+          git commit -m "chore: sync rootProject.name with repository" 
+          git push
+
+      - name: Purge template artifacts
+        run: |
+          rm -f .github/renovate.json
+          : > README.md
+          
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git rm -f .github/renovate.json || true
+          
+          git add README.md || true
+
+          git commit -m "chore: remove template-only files" 
+          git push
+
+      - name: Self-destruct bootstrap workflow
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git rm -f .github/workflows/bootstrap.yml || true
+          git commit -m "chore: remove bootstrap workflow (self-destruct)" 
+          git push
