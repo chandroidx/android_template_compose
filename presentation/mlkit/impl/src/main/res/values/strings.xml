@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vision_api">Vision APIs</string>
+    <string name="text_recognition">Text recognition</string>
+    <string name="barcode_scanning">Barcode scanning</string>
+    <string name="face_detection">Face detection</string>
+    <string name="face_mesh_detection">Face mesh detection (Beta)</string>
+    <string name="image_labeling">Image labeling</string>
+    <string name="object_detection_and_tracking">Object detection and tracking</string>
+    <string name="digital_ink_recognition">Digital ink recognition</string>
+    <string name="pose_detection">Pose detection (Beta)</string>
+    <string name="selfie_segmentation">Selfie segmentation (Beta)</string>
+    <string name="subject_segmentation">Subject segmentation (Beta)</string>
+    <string name="document_scanner">Document scanner</string>
+
+    <string name="natural_language_api">Natural language APIs</string>
+    <string name="language_identification">Language identification</string>
+    <string name="translation">Translation</string>
+    <string name="smart_reply">Smart reply</string>
+    <string name="entity_extraction">Entity extraction</string>
+</resources>

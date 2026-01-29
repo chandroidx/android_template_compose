@@ -1,0 +1,14 @@
+plugins {
+  alias(libs.plugins.chandroidx.presentation)
+  alias(libs.plugins.kotlin.serialization)
+}
+
+android {
+  namespace = "com.chandroidx.layout"
+}
+
+dependencies {
+  implementation(projects.presentation.template.core)
+  implementation(projects.presentation.layout.api)
+  implementation(libs.kotlinx.serialization)
+}

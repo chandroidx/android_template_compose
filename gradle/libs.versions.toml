@@ -1,5 +1,5 @@
 [versions]
-applicationName = "chandroidx"
+applicationName = "Android Template Compose"
 applicationId = "com.chandroidx.android"
 minSdk = "24"
 targetSdk = "36"
@@ -9,7 +9,7 @@ versionName = "1.0.0"
 
 kotlin = "2.3.0"
 kotlinSerialization = "1.10.0"
-ksp = "2.3.4"
+ksp = "2.3.5"
 coreKtx = "1.17.0"
 activityCompose = "1.12.2"
 composeBom = "2026.01.00"
@@ -26,6 +26,17 @@ spotless = "8.2.1"
 splash = "1.2.0"
 lifecycleRuntimeCompose = "2.10.0"
 agp = "9.0.0"
+cameraX = "1.5.2"
+textRecognition = "16.0.1"
+barcodeScanning = "17.3.0"
+faceDetection = "16.1.7"
+faceMeshDetection = "16.0.0-beta3"
+imageLabeling = "17.0.9"
+objectDetection = "17.0.2"
+digitalInkRecognition = "19.0.0"
+poseDetection = "18.0.0-beta5"
+selfieSegmentation = "16.0.0-beta6"
+accompanistPermission = "0.37.3"
 
 [libraries]
 # Android
@@ -74,9 +85,31 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
+# CameraX
+cameraX-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraX" }
+cameraX-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "cameraX" }
+cameraX-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "cameraX" }
+cameraX-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraX" }
+cameraX-extensions = { group = "androidx.camera", name = "camera-extensions", version.ref = "cameraX" }
+cameraX-mlkit-vision = { group = "androidx.camera", name = "camera-mlkit-vision", version.ref = "cameraX" }
+
+# MLKit
+mlkit-textRecognition = { group = "com.google.mlkit", name = "text-recognition", version.ref = "textRecognition" }
+mlkit-barcodeScanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "barcodeScanning" }
+mlkit-faceDetection = { group = "com.google.mlkit", name = "face-detection", version.ref = "faceDetection" }
+mlkit-faceMeshDetection = { group = "com.google.mlkit", name = "face-mesh-detection", version.ref = "faceMeshDetection" }
+mlkit-imageLabeling = { group = "com.google.mlkit", name = "image-labeling", version.ref = "imageLabeling" }
+mlkit-objectDetection = { group = "com.google.mlkit", name = "object-detection", version.ref = "objectDetection" }
+mlkit-digitalInkRecognition = { group = "com.google.mlkit", name = "digital-ink-recognition", version.ref = "digitalInkRecognition" }
+mlkit-poseDetection = { group = "com.google.mlkit", name = "pose-detection", version.ref = "poseDetection" }
+mlkit-selfieSegmentation = { group = "com.google.mlkit", name = "segmentation-selfie", version.ref = "selfieSegmentation" }
+
+accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistPermission" }
+
 [bundles]
 compose = ["androidx-compose-foundation", "androidx-compose-material3", "androidx-compose-runtime", "androidx-compose-ui", "androidx-compose-ui-graphics", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview", "androidx-compose-activity", "androidx-compose-navigation3-runtime", "androidx-compose-navigation3-ui", "androidx-hiltNavigationCompose", "compose-extensions", "androidx-compose-animation", "androidx-lifecycleRuntimeCompose"]
 ktor = ["ktor-okhttp", "ktor-serialization", "ktor-serialization-kotlinx-json", "ktor-contentNegotiation", "ktor-logging", "sandwich"]
+cameraX = ["cameraX-core", "cameraX-camera2", "cameraX-lifecycle", "cameraX-view", "cameraX-extensions", "cameraX-mlkit-vision"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

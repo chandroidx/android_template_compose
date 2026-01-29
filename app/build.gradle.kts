@@ -60,7 +60,11 @@ android {
 dependencies {
   implementation(projects.buildconfig)
   implementation(projects.presentation.scheme)
-  implementation(projects.presentation.home.impl)
+  implementation(projects.presentation.template.impl)
+  implementation(projects.presentation.layout.impl)
+  implementation(projects.presentation.inputcontrol.impl)
+  implementation(projects.presentation.textandtypography.impl)
+  implementation(projects.presentation.mlkit.impl)
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.splashScreen)

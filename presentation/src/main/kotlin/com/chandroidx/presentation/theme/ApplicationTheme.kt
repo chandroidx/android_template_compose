@@ -1,5 +1,6 @@
 package com.chandroidx.presentation.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
@@ -15,7 +16,7 @@ fun ApplicationTheme(
   isSystemBarVisible: Boolean = true,
   isStatusBarVisible: Boolean = isSystemBarVisible,
   isNavigationBarVisible: Boolean = isSystemBarVisible,
-  systemBarsDarkContentEnabled: Boolean = true,
+  systemBarsDarkContentEnabled: Boolean = !isSystemInDarkTheme(),
   statusBarDarkContentEnabled: Boolean = systemBarsDarkContentEnabled,
   navigationBarDarkContentEnabled: Boolean = systemBarsDarkContentEnabled,
   content: @Composable () -> Unit,
@@ -36,7 +37,7 @@ fun ApplicationTheme(
   }
 
   MaterialTheme(
-    colorScheme = ColorScheme,
+    colorScheme = if (isSystemInDarkTheme()) DarkColorScheme else LightColorScheme,
     typography = Typography,
     content = {
       ProvideTextStyle(defaultTextStyle) {

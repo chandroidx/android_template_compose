@@ -1,0 +1,18 @@
+
+
+plugins {
+  alias(libs.plugins.chandroidx.presentation)
+  alias(libs.plugins.kotlin.serialization)
+}
+
+android {
+  namespace = "com.chandroidx.mlkit.core"
+}
+
+dependencies {
+  implementation(projects.presentation)
+  implementation(projects.presentation.template.core)
+  implementation(libs.kotlinx.serialization)
+  implementation(libs.bundles.cameraX)
+  implementation(libs.accompanist.permissions)
+}

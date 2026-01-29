@@ -1,0 +1,22 @@
+
+
+plugins {
+  alias(libs.plugins.chandroidx.presentation)
+  alias(libs.plugins.kotlin.serialization)
+}
+
+android {
+  namespace = "com.chandroidx.template"
+}
+
+dependencies {
+  implementation(projects.presentation)
+  implementation(projects.presentation.template.api)
+  implementation(projects.presentation.template.core)
+  implementation(projects.presentation.layout.api)
+  implementation(projects.presentation.inputcontrol.api)
+  implementation(projects.presentation.textandtypography.api)
+  implementation(projects.presentation.mlkit.api)
+
+  implementation(libs.kotlinx.serialization)
+}

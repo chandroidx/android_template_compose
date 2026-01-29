@@ -19,12 +19,13 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.scene.SinglePaneSceneStrategy
 import androidx.navigation3.ui.NavDisplay
-import com.chandroidx.home.HomeNavKey
+import com.chandroidx.core.strategy.ComponentDialogSceneStrategy
 import com.chandroidx.navigator.LocalNavigator
 import com.chandroidx.navigator.LocalResultStore
 import com.chandroidx.navigator.Navigator
 import com.chandroidx.navigator.rememberResultStore
 import com.chandroidx.presentation.strategy.BottomSheetSceneStrategy
+import com.chandroidx.template.TemplateNavKey
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -40,8 +41,9 @@ class SchemeActivity : ComponentActivity() {
     enableEdgeToEdge()
 
     setContent {
-      val backStack = remember { mutableStateListOf<NavKey>(HomeNavKey) }
+      val backStack = remember { mutableStateListOf<NavKey>(TemplateNavKey) }
 
+      val componentDialogStrategy = remember { ComponentDialogSceneStrategy<NavKey>() }
       val bottomSheetStrategy = remember { BottomSheetSceneStrategy<NavKey>() }
       val dialogStrategy = remember { DialogSceneStrategy<NavKey>() }
       val singlePaneStrategy = remember { SinglePaneSceneStrategy<NavKey>() }
@@ -53,7 +55,7 @@ class SchemeActivity : ComponentActivity() {
         NavDisplay(
           backStack = backStack,
           onBack = { backStack.removeLastOrNull() },
-          sceneStrategy = bottomSheetStrategy then dialogStrategy then singlePaneStrategy,
+          sceneStrategy = componentDialogStrategy then bottomSheetStrategy then dialogStrategy then singlePaneStrategy,
           entryDecorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator(),

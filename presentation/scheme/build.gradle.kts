@@ -1,15 +1,19 @@
+
+
 plugins {
   alias(libs.plugins.chandroidx.presentation)
   alias(libs.plugins.kotlin.serialization)
 }
 
-android {
+android  {
   namespace = "com.chandroidx.scheme"
 }
 
 dependencies {
   implementation(projects.presentation)
-  implementation(projects.presentation.home.api)
+  implementation(projects.presentation.template.api)
+  implementation(projects.presentation.template.core)
+  implementation(projects.presentation.mlkit.api)
 
   implementation(libs.splashScreen)
   implementation(libs.kotlinx.serialization)
