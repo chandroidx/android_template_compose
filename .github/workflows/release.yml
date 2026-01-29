@@ -1,4 +1,8 @@
 name: Generated AAB
+
+permissions:
+  contents: write
+
 env:
   main_project_module: app
 
