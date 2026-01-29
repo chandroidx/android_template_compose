@@ -59,6 +59,9 @@ android {
 
 dependencies {
   implementation(projects.buildconfig)
+  implementation(projects.data.impl)
+  implementation(projects.data.network.impl)
+
   implementation(projects.presentation.scheme)
   implementation(projects.presentation.template.impl)
   implementation(projects.presentation.layout.impl)

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-  namespace = "com.chandroidx.data.network"
+  namespace = "com.chandroidx.network"
 }
 
 dependencies {
