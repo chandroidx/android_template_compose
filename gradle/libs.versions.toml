@@ -7,7 +7,7 @@ compileSdk = "36"
 versionCode = "1"
 versionName = "1.0.0"
 
-kotlin = "2.3.0"
+kotlin = "2.3.10"
 kotlinSerialization = "1.10.0"
 ksp = "2.3.5"
 coreKtx = "1.17.0"
