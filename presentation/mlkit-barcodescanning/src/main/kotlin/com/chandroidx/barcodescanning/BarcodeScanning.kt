@@ -50,10 +50,11 @@ fun BarcodeScanning(
   }
 
   Column(
+    modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
   ) {
     Box(
-      modifier = modifier
+      modifier = Modifier
         .aspectRatio(1f)
         .fillMaxWidth(),
     ) {

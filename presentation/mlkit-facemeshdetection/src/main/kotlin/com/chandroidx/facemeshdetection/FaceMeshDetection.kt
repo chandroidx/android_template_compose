@@ -25,7 +25,8 @@ fun FaceMeshDetection(
 ) {
   val detectedFaceMeshes = remember { mutableStateListOf<FaceMesh>() }
 
-  val options = FaceMeshDetectorOptions.Builder()
+  val options = FaceMeshDetectorOptions
+    .Builder()
     .setUseCase(FaceMeshDetectorOptions.FACE_MESH)
     .build()
 

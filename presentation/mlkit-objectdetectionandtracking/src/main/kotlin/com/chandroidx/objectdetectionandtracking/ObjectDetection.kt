@@ -29,7 +29,8 @@ import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 fun ObjectDetection(
   modifier: Modifier = Modifier,
 ) {
-  val options = ObjectDetectorOptions.Builder()
+  val options = ObjectDetectorOptions
+    .Builder()
     .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
     .enableClassification()
     .build()
@@ -39,11 +40,12 @@ fun ObjectDetection(
   var objectDetectionResult by remember { mutableStateOf<DetectedObject?>(null) }
 
   Column(
+    modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(20.dp),
   ) {
     Box(
-      modifier = modifier
+      modifier = Modifier
         .aspectRatio(1f)
         .fillMaxWidth(),
     ) {
@@ -68,11 +70,13 @@ fun ObjectDetection(
       }
     }
 
-    val label = objectDetectionResult?.labels?.takeIf {
-      it.isNotEmpty()
-    }?.maxBy { label ->
-      label.confidence
-    }?.text
+    val label = objectDetectionResult
+      ?.labels
+      ?.takeIf {
+        it.isNotEmpty()
+      }?.maxBy { label ->
+        label.confidence
+      }?.text
 
     if (!label.isNullOrEmpty()) {
       Text(

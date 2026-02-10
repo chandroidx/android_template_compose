@@ -30,7 +30,8 @@ import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
 fun SelfieSegmentation(
   modifier: Modifier = Modifier,
 ) {
-  val options = SelfieSegmenterOptions.Builder()
+  val options = SelfieSegmenterOptions
+    .Builder()
     .setDetectorMode(SelfieSegmenterOptions.STREAM_MODE)
     .build()
 

@@ -45,8 +45,8 @@ fun PageDescriptionWrapper(
 
 @Composable
 fun PageIndicator(
-  modifier: Modifier = Modifier,
   pagerState: PagerState,
+  modifier: Modifier = Modifier,
 ) {
   Row(
     modifier = modifier,

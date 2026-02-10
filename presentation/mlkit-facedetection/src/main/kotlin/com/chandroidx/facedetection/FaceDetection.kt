@@ -25,7 +25,8 @@ fun FaceDetection(
 ) {
   val detectedFaces = remember { mutableStateListOf<Face>() }
 
-  val options = FaceDetectorOptions.Builder()
+  val options = FaceDetectorOptions
+    .Builder()
     // High-accuracy landmark detection and face classification
     .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
     .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)

@@ -23,7 +23,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 class MlKitViewModel @AssistedInject constructor(
   @Assisted api: MlKitApi,
 ) : ViewModel() {
-
   private val _state = MutableStateFlow(
     MlKitState(
       api = api,

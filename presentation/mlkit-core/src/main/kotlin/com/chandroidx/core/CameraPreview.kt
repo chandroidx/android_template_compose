@@ -30,11 +30,11 @@ import com.google.mlkit.vision.interfaces.Detector
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CameraPreview(
-  modifier: Modifier = Modifier,
   detector: Detector<*>,
+  modifier: Modifier = Modifier,
   requireLensFacing: Int = CameraSelector.LENS_FACING_BACK,
   targetCoordinateSystem: Int = ImageAnalysis.COORDINATE_SYSTEM_VIEW_REFERENCED,
-  consumer: Consumer<MlKitAnalyzer.Result>,
+  consumer: Consumer<MlKitAnalyzer.Result> = Consumer { _ -> },
 ) {
   val context = LocalContext.current
   val lifecycleOwner = LocalLifecycleOwner.current
@@ -51,7 +51,8 @@ fun CameraPreview(
         ),
       )
 
-      cameraSelector = CameraSelector.Builder()
+      cameraSelector = CameraSelector
+        .Builder()
         .requireLensFacing(requireLensFacing)
         .build()
 

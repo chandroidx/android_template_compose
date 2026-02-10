@@ -16,9 +16,9 @@ import com.chandroidx.presentation.theme.ApplicationTheme
 
 @Composable
 fun TextButton(
-  modifier: Modifier = Modifier,
   text: String,
   onClick: () -> Unit,
+  modifier: Modifier = Modifier,
   enabled: Boolean = true,
 ) {
   Box(

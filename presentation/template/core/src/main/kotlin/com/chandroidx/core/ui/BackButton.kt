@@ -20,9 +20,9 @@ import com.chandroidx.template.core.R
 
 @Composable
 fun Header(
-  modifier: Modifier = Modifier,
   title: String,
   onBackClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   Box(modifier = modifier.fillMaxWidth()) {
     BackButton(

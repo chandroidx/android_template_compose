@@ -49,7 +49,7 @@ fun DigitalInkRecognition(
   val remoteModelManager = remember { RemoteModelManager.getInstance() }
   val isModelDownloaded by rememberModelReady(remoteModelManager, model)
 
-  val strokes = remember { mutableStateListOf<List<Ink.Point>>() }
+  val strokes = remember { mutableStateListOf<SnapshotStateList<Ink.Point>>() }
   val currentStroke = remember { mutableStateListOf<Ink.Point>() }
 
   Column(
@@ -72,7 +72,8 @@ fun DigitalInkRecognition(
     ButtonsRow(
       canRecognize = isModelDownloaded,
       onRecognizeClick = {
-        recognizer.recognize(buildInk(strokes + listOf(currentStroke)))
+        recognizer
+          .recognize(buildInk(strokes + listOf(currentStroke)))
           .addOnSuccessListener { result ->
             result.candidates.firstOrNull()?.let { candidate ->
               Toast.makeText(context, candidate.text, Toast.LENGTH_SHORT).show()
@@ -89,9 +90,9 @@ fun DigitalInkRecognition(
 
 @Composable
 private fun InkCanvas(
-  modifier: Modifier,
-  strokes: List<List<Ink.Point>>,
-  currentStroke: MutableList<Ink.Point>,
+  strokes: SnapshotStateList<SnapshotStateList<Ink.Point>>,
+  currentStroke: SnapshotStateList<Ink.Point>,
+  modifier: Modifier = Modifier,
 ) {
   val primaryColor = MaterialTheme.colorScheme.primary
 
@@ -110,9 +111,7 @@ private fun InkCanvas(
           }
 
           if (currentStroke.isNotEmpty()) {
-            if (strokes is SnapshotStateList<List<Ink.Point>>) {
-              strokes.add(currentStroke.toList())
-            }
+            strokes.add(currentStroke)
             currentStroke.clear()
           }
         }
@@ -159,7 +158,8 @@ private fun rememberModelReady(
 ): State<Boolean> = produceState(initialValue = false, remoteModelManager, model) {
   remoteModelManager.isModelDownloaded(model).addOnCompleteListener { taskResult ->
     if (!taskResult.result) {
-      remoteModelManager.download(model, DownloadConditions.Builder().build())
+      remoteModelManager
+        .download(model, DownloadConditions.Builder().build())
         .addOnSuccessListener {
           value = true
         }
@@ -171,10 +171,10 @@ private fun rememberModelReady(
 
 @Composable
 private fun ButtonsRow(
-  modifier: Modifier = Modifier,
   canRecognize: Boolean,
   onRecognizeClick: () -> Unit,
   onClearClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   Row(
     modifier = modifier.wrapContentHeight(),

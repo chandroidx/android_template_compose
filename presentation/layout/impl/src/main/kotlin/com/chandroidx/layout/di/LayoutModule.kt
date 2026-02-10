@@ -101,7 +101,7 @@ object LayoutModule {
           state = pagerState,
         ) { page ->
           when (page) {
-            COLUMN ->
+            COLUMN -> {
               PageDescriptionWrapper(
                 description = "Column",
                 modifier = Modifier.fillMaxSize(),
@@ -131,6 +131,7 @@ object LayoutModule {
                   )
                 }
               }
+            }
 
             LAZY_COLUMN -> {
               PageDescriptionWrapper(
@@ -173,21 +174,23 @@ object LayoutModule {
               }
             }
 
-            FLOW_COLUMN -> PageDescriptionWrapper(
-              description = "FlowColumn",
-              modifier = Modifier.fillMaxSize(),
-            ) {
-              FlowColumn(
+            FLOW_COLUMN -> {
+              PageDescriptionWrapper(
+                description = "FlowColumn",
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(5.dp),
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
               ) {
-                repeat(50) {
-                  FilledBox(
-                    modifier = Modifier
-                      .height((10..50).random().dp)
-                      .width(15.dp),
-                  )
+                FlowColumn(
+                  modifier = Modifier.fillMaxSize(),
+                  verticalArrangement = Arrangement.spacedBy(5.dp),
+                  horizontalArrangement = Arrangement.spacedBy(5.dp),
+                ) {
+                  repeat(50) {
+                    FilledBox(
+                      modifier = Modifier
+                        .height((10..50).random().dp)
+                        .width(15.dp),
+                    )
+                  }
                 }
               }
             }
@@ -215,33 +218,35 @@ object LayoutModule {
           state = pagerState,
         ) { page ->
           when (page) {
-            ROW -> PageDescriptionWrapper(
-              modifier = Modifier.fillMaxSize(),
-              description = "Row",
-            ) {
-              Row(
+            ROW -> {
+              PageDescriptionWrapper(
                 modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                description = "Row",
               ) {
-                FilledBox(
-                  modifier = Modifier
-                    .fillMaxHeight()
-                    .alpha(0.5f)
-                    .weight(1f),
-                )
+                Row(
+                  modifier = Modifier.fillMaxSize(),
+                  horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                  FilledBox(
+                    modifier = Modifier
+                      .fillMaxHeight()
+                      .alpha(0.5f)
+                      .weight(1f),
+                  )
 
-                FilledBox(
-                  modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1f),
-                )
+                  FilledBox(
+                    modifier = Modifier
+                      .fillMaxHeight()
+                      .weight(1f),
+                  )
 
-                FilledBox(
-                  modifier = Modifier
-                    .fillMaxHeight()
-                    .alpha(0.5f)
-                    .weight(1f),
-                )
+                  FilledBox(
+                    modifier = Modifier
+                      .fillMaxHeight()
+                      .alpha(0.5f)
+                      .weight(1f),
+                  )
+                }
               }
             }
 
@@ -286,21 +291,23 @@ object LayoutModule {
               }
             }
 
-            FLOW_ROW -> PageDescriptionWrapper(
-              description = "FlowRow",
-              modifier = Modifier.fillMaxSize(),
-            ) {
-              FlowRow(
+            FLOW_ROW -> {
+              PageDescriptionWrapper(
+                description = "FlowRow",
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(5.dp),
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
               ) {
-                repeat(50) {
-                  FilledBox(
-                    modifier = Modifier
-                      .width((10..50).random().dp)
-                      .height(15.dp),
-                  )
+                FlowRow(
+                  modifier = Modifier.fillMaxSize(),
+                  verticalArrangement = Arrangement.spacedBy(5.dp),
+                  horizontalArrangement = Arrangement.spacedBy(5.dp),
+                ) {
+                  repeat(50) {
+                    FilledBox(
+                      modifier = Modifier
+                        .width((10..50).random().dp)
+                        .height(15.dp),
+                    )
+                  }
                 }
               }
             }
@@ -322,7 +329,7 @@ object LayoutModule {
 }
 
 @Composable
-private fun FilledBox(modifier: Modifier, content: @Composable (BoxScope.() -> Unit)? = null) {
+private fun FilledBox(modifier: Modifier = Modifier, content: @Composable (BoxScope.() -> Unit)? = null) {
   Box(
     modifier = modifier
       .clip(RoundedCornerShape(3.dp))

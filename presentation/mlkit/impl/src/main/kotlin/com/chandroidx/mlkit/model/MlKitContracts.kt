@@ -15,10 +15,12 @@ data class MlKitState(
 
 sealed interface MlKitIntent {
   data class OnComponentClicked(val component: Component) : MlKitIntent
+
   data object NavigateUp : MlKitIntent
 }
 
 sealed interface MlKitSideEffect {
   data class NavigateTo(val navKey: NavKey) : MlKitSideEffect
+
   data object NavigateUp : MlKitSideEffect
 }

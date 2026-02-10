@@ -28,7 +28,8 @@ fun PoseDetection(
 ) {
   var detectedPose by remember { mutableStateOf<Pose?>(null) }
 
-  val options = PoseDetectorOptions.Builder()
+  val options = PoseDetectorOptions
+    .Builder()
     .setDetectorMode(PoseDetectorOptions.STREAM_MODE)
     .build()
 
@@ -49,7 +50,10 @@ fun PoseDetection(
     }
 
     if (detectedPose != null) {
-      fun DrawScope.drawLine(@PoseLandmark.LandmarkType from: Int, @PoseLandmark.LandmarkType to: Int) {
+      fun DrawScope.drawLine(
+        @PoseLandmark.LandmarkType from: Int,
+        @PoseLandmark.LandmarkType to: Int,
+      ) {
         drawLine(
           start = detectedPose!!.getPoseLandmark(from)?.position,
           end = detectedPose!!.getPoseLandmark(to)?.position,

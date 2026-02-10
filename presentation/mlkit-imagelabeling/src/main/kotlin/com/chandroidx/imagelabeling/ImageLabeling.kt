@@ -44,9 +44,10 @@ fun ImageLabeling(
 
     if (imageLabelResult.isNotEmpty()) {
       Text(
-        text = imageLabelResult.maxBy { imageLabel ->
-          imageLabel.confidence
-        }.text,
+        text = imageLabelResult
+          .maxBy { imageLabel ->
+            imageLabel.confidence
+          }.text,
         color = MaterialTheme.colorScheme.primary,
         fontWeight = FontWeight.Bold,
       )
