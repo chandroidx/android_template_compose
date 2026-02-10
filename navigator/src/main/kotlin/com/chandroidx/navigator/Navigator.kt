@@ -10,6 +10,7 @@ val LocalNavigator = compositionLocalOf<Navigator> {
 
 interface Navigator {
   fun navigate(navKey: NavKey)
+
   fun navigateUp()
 
   companion object {

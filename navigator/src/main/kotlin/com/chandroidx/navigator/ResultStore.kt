@@ -63,7 +63,6 @@ fun rememberResultStore(): ResultStore = remember {
  * It provides a solution for state based results.
  */
 class ResultStore {
-
   /**
    * Map from the result key to a mutable state of the result.
    */
