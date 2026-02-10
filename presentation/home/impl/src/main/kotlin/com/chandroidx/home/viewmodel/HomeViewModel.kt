@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor() : ViewModel() {
-
   private val _sideEffect = Channel<HomeSideEffect>(Channel.BUFFERED)
   val sideEffect: Flow<HomeSideEffect>
     get() = _sideEffect.receiveAsFlow()

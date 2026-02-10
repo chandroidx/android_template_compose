@@ -103,9 +103,9 @@ private fun HomeScreen(
 
 @Composable
 private fun SimpleButton(
-  modifier: Modifier = Modifier,
   onClick: () -> Unit,
   text: String,
+  modifier: Modifier = Modifier,
 ) {
   Box(
     modifier = modifier

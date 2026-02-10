@@ -19,7 +19,6 @@ import kotlin.random.Random
 class SecondViewModel @AssistedInject constructor(
   @Assisted private val value: Int,
 ) : ViewModel() {
-
   private val _state = MutableStateFlow(SecondState(value))
   val state: StateFlow<SecondState>
     get() = _state.asStateFlow()
