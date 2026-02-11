@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
@@ -12,7 +13,9 @@ class PresentationConventionPlugin : AndroidConvention, HiltConvention, ComposeC
     super<ComposeConvention>.apply(target)
 
     with(target) {
-      val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+      extensions.getByType<LibraryExtension>().apply {
+        androidResources.enable = true
+      }
       dependencies {
         add("implementation", project(":navigator"))
         add("implementation", project(":data:api"))
