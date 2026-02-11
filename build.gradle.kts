@@ -6,7 +6,7 @@ plugins {
   alias(libs.plugins.ksp) apply false
   alias(libs.plugins.compose.compiler) apply false
   alias(libs.plugins.kotlin.jvm) apply false
-  alias(libs.plugins.kotlin.serialization) apply false
+  alias(libs.plugins.kotlinx.serialization) apply false
 }
 
 subprojects {
@@ -37,11 +37,11 @@ val addPreCommitGitHookOnBuild by tasks.registering {
 
     if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
       providers.exec {
-        commandLine("cmd", "/c", "copy", "/Y", "scripts\\pre-commit", ".git\\hooks\\pre-commit")
+        commandLine("cmd", "/c", "copy", "/Y", ".scripts\\pre-commit", ".git\\hooks\\pre-commit")
       }.result.get()
     } else {
       providers.exec {
-        commandLine("cp", "scripts/pre-commit", ".git/hooks")
+        commandLine("cp", ".scripts/pre-commit", ".git/hooks")
       }.result.get()
       providers.exec {
         commandLine("chmod", "755", ".git/hooks/pre-commit")

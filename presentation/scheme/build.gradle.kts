@@ -2,7 +2,7 @@
 
 plugins {
   alias(libs.plugins.chandroidx.presentation)
-  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.kotlinx.serialization)
 }
 
 android  {

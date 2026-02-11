@@ -2,7 +2,7 @@
 
 plugins {
   alias(libs.plugins.chandroidx.presentation)
-  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -17,6 +17,7 @@ dependencies {
   implementation(projects.presentation.inputcontrol.api)
   implementation(projects.presentation.textandtypography.api)
   implementation(projects.presentation.mlkit.api)
+  implementation(projects.presentation.naver.api)
 
   implementation(libs.kotlinx.serialization)
 }

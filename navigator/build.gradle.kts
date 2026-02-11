@@ -1,7 +1,7 @@
 plugins {
   alias(libs.plugins.chandroidx.android)
   alias(libs.plugins.chandroidx.compose)
-  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.kotlinx.serialization)
 }
 
 android {

@@ -1,6 +1,6 @@
 plugins {
   alias(libs.plugins.chandroidx.jvm)
-  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.kotlinx.serialization)
 }
 
 dependencies {

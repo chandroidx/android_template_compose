@@ -19,14 +19,14 @@ sealed interface Layout : Component {
     override val navKey: NavKey = ColumnNavKey
     override val iconResId: Int = R.drawable.column
     override val textResId: Int = R.string.column
-    override val descriptionResId: Int? = R.string.column_description
+    override val descriptionResId: Int = R.string.column_description
   }
 
   data object Row : Layout {
     override val navKey: NavKey = RowNavKey
     override val iconResId: Int = R.drawable.row
     override val textResId: Int = R.string.row
-    override val descriptionResId: Int? = R.string.row_description
+    override val descriptionResId: Int = R.string.row_description
   }
 
   companion object {

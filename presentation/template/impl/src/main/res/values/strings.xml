@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Layouts -->
-    <string name="box">Box</string>
-    <string name="column">Column</string>
-    <string name="column_description">Column, LazyColumn, FlowColumn</string>
-    <string name="row">Row</string>
-    <string name="row_description">Row, LazyRow, FlowRow</string>
+  <!-- Layouts -->
+  <string name="box">Box</string>
+  <string name="column">Column</string>
+  <string name="column_description">Column, LazyColumn, FlowColumn</string>
+  <string name="row">Row</string>
+  <string name="row_description">Row, LazyRow, FlowRow</string>
 
-    <!-- Input Controls -->
-    <string name="button">Button</string>
-    <string name="button_description">Button, IconButton</string>
-    <string name="text_field">TextField</string>
-    <string name="text_field_description">TextField, OutlinedTextField</string>
-    <string name="check_box">CheckBox</string>
-    <string name="radio_button">RadioButton</string>
-    <string name="input_control_switch">Switch</string>
+  <!-- Input Controls -->
+  <string name="button">Button</string>
+  <string name="button_description">Button, IconButton</string>
+  <string name="text_field">TextField</string>
+  <string name="text_field_description">TextField, OutlinedTextField</string>
+  <string name="check_box">CheckBox</string>
+  <string name="radio_button">RadioButton</string>
+  <string name="input_control_switch">Switch</string>
 
-    <!-- Texts -->
-    <string name="text">Text</string>
-    <string name="annotated_string">AnnotatedString</string>
+  <!-- Texts -->
+  <string name="text">Text</string>
+  <string name="annotated_string">AnnotatedString</string>
 
-    <!-- MLKit -->
-    <string name="vision_api">Vision APIs</string>
-    <string name="vision_api_description">Video and image analysis APIs to label images and detect barcodes, text, faces, and objects</string>
-    <string name="natural_language_api">Natural language APIs</string>
-    <string name="natural_language_api_description">Natural language processing APIs to identify and translate between 58 languages and provide reply suggestions</string>
+  <!-- MLKit -->
+  <string name="vision_api">Vision APIs</string>
+  <string name="vision_api_description">Video and image analysis APIs to label images and detect barcodes, text, faces, and objects</string>
+  <string name="natural_language_api">Natural language APIs</string>
+  <string name="natural_language_api_description">Natural language processing APIs to identify and translate between 58 languages and provide reply suggestions</string>
+
+  <!-- Naver -->
+  <string name="naver">Naver Cloud Platform</string>
 </resources>

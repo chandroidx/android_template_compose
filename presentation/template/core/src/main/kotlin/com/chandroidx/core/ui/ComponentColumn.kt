@@ -1,5 +1,6 @@
 package com.chandroidx.core.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -89,10 +91,11 @@ private fun ComponentItem(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(15.dp),
   ) {
-    Icon(
+    Image(
+      modifier = Modifier.size(24.dp),
       painter = painterResource(component.iconResId),
+      colorFilter = component.iconTint()?.let(ColorFilter::tint),
       contentDescription = null,
-      tint = MaterialTheme.colorScheme.primary,
     )
 
     Column(

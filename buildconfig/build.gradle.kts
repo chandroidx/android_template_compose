@@ -1,5 +1,15 @@
+import java.util.Properties
+import kotlin.apply
+
 plugins {
   alias(libs.plugins.chandroidx.android)
+}
+
+val localProperties = Properties().apply {
+  val localFile: File = rootProject.file("local.properties")
+  if (localFile.exists()) {
+    load(localFile.inputStream())
+  }
 }
 
 android {
@@ -11,6 +21,7 @@ android {
 
   defaultConfig {
     buildConfigField("String", "VERSION_NAME", "String.valueOf(\"${libs.versions.versionName.get()}\")")
+    buildConfigField("String", "NAVER_API_CLIENT_ID", "\"${localProperties["NAVER_API_CLIENT_ID"]}\"")
   }
 
   flavorDimensions.add("api")

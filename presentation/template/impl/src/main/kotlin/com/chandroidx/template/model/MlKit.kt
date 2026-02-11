@@ -11,14 +11,14 @@ sealed interface MlKit : Component {
     override val navKey: NavKey = MlKitNavKey(MlKitApi.Vision)
     override val iconResId: Int = R.drawable.ico_vision
     override val textResId: Int = R.string.vision_api
-    override val descriptionResId: Int? = R.string.vision_api_description
+    override val descriptionResId: Int = R.string.vision_api_description
   }
 
   data object NaturalLanguage : MlKit {
     override val navKey: NavKey = MlKitNavKey(MlKitApi.NaturalLanguage)
     override val iconResId: Int = R.drawable.ico_natural_language
     override val textResId: Int = R.string.natural_language_api
-    override val descriptionResId: Int? = R.string.natural_language_api_description
+    override val descriptionResId: Int = R.string.natural_language_api_description
   }
 
   companion object {

@@ -39,6 +39,8 @@ include(
   ":navigator",
   ":presentation",
   ":presentation:scheme",
+  ":presentation:naver:api",
+  ":presentation:naver:impl",
   ":presentation:template:api",
   ":presentation:template:impl",
   ":presentation:template:core",
@@ -63,3 +65,4 @@ include(
 )
 
 gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+

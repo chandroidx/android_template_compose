@@ -38,6 +38,7 @@ digitalInkRecognition = "19.0.0"
 poseDetection = "18.0.0-beta5"
 selfieSegmentation = "16.0.0-beta6"
 accompanistPermission = "0.37.3"
+naverSpeechClient = "1.2.0"
 
 [libraries]
 # Android
@@ -62,6 +63,9 @@ androidx-compose-navigation3-viewModel = { group = "androidx.lifecycle", name = 
 androidx-hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
 compose-extensions = { group = "tech.thdev", name = "extensions-compose-system-ui-controller", version.ref = "composeExtensions" }
 androidx-lifecycleRuntimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+
+# Naver
+naver-speech-client = { group = "com.naver.speech.clientapi", name = "naverspeech-ncp-sdk-android", version.ref = "naverSpeechClient" }
 
 # Kotlin
 kotlinx-coroutine-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
@@ -116,7 +120,7 @@ cameraX = ["cameraX-core", "cameraX-camera2", "cameraX-lifecycle", "cameraX-view
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

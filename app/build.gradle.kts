@@ -63,6 +63,7 @@ dependencies {
   implementation(projects.data.network.impl)
 
   implementation(projects.presentation.scheme)
+  implementation(projects.presentation.naver.impl)
   implementation(projects.presentation.template.impl)
   implementation(projects.presentation.layout.impl)
   implementation(projects.presentation.inputcontrol.impl)

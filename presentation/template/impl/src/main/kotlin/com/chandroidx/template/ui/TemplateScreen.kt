@@ -22,6 +22,7 @@ import com.chandroidx.core.Component
 import com.chandroidx.core.ui.ComponentColumn
 import com.chandroidx.navigator.LocalNavigator
 import com.chandroidx.presentation.theme.ApplicationTheme
+import com.chandroidx.template.model.Api
 import com.chandroidx.template.model.InputControl
 import com.chandroidx.template.model.Layout
 import com.chandroidx.template.model.MlKit
@@ -96,6 +97,12 @@ private fun TemplateScreen(
       ComponentColumn(
         title = "ML Kit",
         components = MlKit.all().toPersistentList(),
+        onComponentClick = onComponentClick,
+      )
+
+      ComponentColumn(
+        title = "APIs",
+        components = Api.all().toPersistentList(),
         onComponentClick = onComponentClick,
       )
 

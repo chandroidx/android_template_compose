@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="naver">Naver Cloud Platform</string>
+  <string name="naver_speech_recognition">Speech Recognition</string>
+</resources>
