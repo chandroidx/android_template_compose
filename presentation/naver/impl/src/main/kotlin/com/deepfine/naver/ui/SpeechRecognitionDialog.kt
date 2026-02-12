@@ -100,6 +100,7 @@ fun SpeechRecognitionDialog() {
 
     Column(
       modifier = Modifier,
+      horizontalAlignment = Alignment.CenterHorizontally,
     ) {
       Waveform(
         modifier = Modifier.size(200.dp),
