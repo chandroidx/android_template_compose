@@ -54,3 +54,17 @@ val addPreCommitGitHookOnBuild by tasks.registering {
 tasks.named("prepareKotlinBuildScriptModel") {
   dependsOn(addPreCommitGitHookOnBuild)
 }
+
+gradle.projectsEvaluated {
+  allprojects.forEach { p ->
+    val pClean = p.tasks.findByName("clean")
+    if (pClean != null) {
+      p.subprojects.forEach { child ->
+        val childClean = child.tasks.findByName("clean")
+        if (childClean != null) {
+          pClean.dependsOn(childClean)
+        }
+      }
+    }
+  }
+}
