@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="naver">Naver Cloud Platform</string>
+  <string name="naver_api_client_id_requested">Naver API\'s client id is required.\nDeclare NAVER_API_CLIENT_ID on your local.properties</string>
   <string name="naver_speech_recognition">Speech Recognition</string>
 </resources>

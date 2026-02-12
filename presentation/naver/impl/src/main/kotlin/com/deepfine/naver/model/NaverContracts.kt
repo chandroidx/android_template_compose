@@ -21,4 +21,6 @@ sealed interface NaverSideEffect {
   data class NavigateTo(val navKey: NavKey) : NaverSideEffect
 
   data object NavigateUp : NaverSideEffect
+
+  data object NaverApiClientIdRequested : NaverSideEffect
 }

@@ -1,6 +1,7 @@
 package com.deepfine.naver.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.chandroidx.buildconfig.BuildConfig
 import com.chandroidx.core.Component
 import com.deepfine.naver.model.NaverApi
 import com.deepfine.naver.model.NaverIntent
@@ -38,8 +39,20 @@ class NaverViewModel @Inject constructor() : ViewModel() {
   }
 
   private fun onComponentClicked(component: Component) {
-    component.navKey?.let { navKey ->
-      _sideEffect.trySend(NaverSideEffect.NavigateTo(navKey))
+    when (component) {
+      is NaverApi.SpeechRecognition -> {
+        if (BuildConfig.NAVER_API_CLIENT_ID.isNullOrEmpty()) {
+          _sideEffect.trySend(NaverSideEffect.NaverApiClientIdRequested)
+        } else {
+          _sideEffect.trySend(NaverSideEffect.NavigateTo(NaverApi.SpeechRecognition.navKey))
+        }
+      }
+
+      else -> {
+        component.navKey?.let { navKey ->
+          _sideEffect.trySend(NaverSideEffect.NavigateTo(navKey))
+        }
+      }
     }
   }
 

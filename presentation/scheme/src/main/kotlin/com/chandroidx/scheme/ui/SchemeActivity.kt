@@ -7,9 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.EntryProviderScope
@@ -25,6 +28,9 @@ import com.chandroidx.navigator.LocalResultStore
 import com.chandroidx.navigator.Navigator
 import com.chandroidx.navigator.rememberResultStore
 import com.chandroidx.presentation.strategy.BottomSheetSceneStrategy
+import com.chandroidx.presentation.ui.LocalSnackbar
+import com.chandroidx.presentation.ui.Snackbar
+import com.chandroidx.presentation.ui.rememberSnackbarState
 import com.chandroidx.template.TemplateNavKey
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -42,7 +48,7 @@ class SchemeActivity : ComponentActivity() {
 
     setContent {
       val backStack = remember { mutableStateListOf<NavKey>(TemplateNavKey) }
-
+      val snackbarState = rememberSnackbarState()
       val componentDialogStrategy = remember { ComponentDialogSceneStrategy<NavKey>() }
       val bottomSheetStrategy = remember { BottomSheetSceneStrategy<NavKey>() }
       val dialogStrategy = remember { DialogSceneStrategy<NavKey>() }
@@ -50,32 +56,37 @@ class SchemeActivity : ComponentActivity() {
 
       CompositionLocalProvider(
         LocalNavigator provides Navigator.from(backStack),
+        LocalSnackbar provides snackbarState,
         LocalResultStore provides rememberResultStore(),
       ) {
-        NavDisplay(
-          backStack = backStack,
-          onBack = { backStack.removeLastOrNull() },
-          sceneStrategy = componentDialogStrategy then bottomSheetStrategy then dialogStrategy then singlePaneStrategy,
-          entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator(),
-          ),
-          entryProvider = entryProvider {
-            entryBuilders.forEach { builder -> this.builder() }
-          },
-          transitionSpec = {
-            slideInHorizontally(initialOffsetX = { it }) togetherWith
-              slideOutHorizontally(targetOffsetX = { -it })
-          },
-          popTransitionSpec = {
-            slideInHorizontally(initialOffsetX = { -it }) togetherWith
-              slideOutHorizontally(targetOffsetX = { it })
-          },
-          predictivePopTransitionSpec = {
-            slideInHorizontally(initialOffsetX = { -it }) togetherWith
-              slideOutHorizontally(targetOffsetX = { it })
-          },
-        )
+        Box(modifier = Modifier.fillMaxSize()) {
+          NavDisplay(
+            backStack = backStack,
+            onBack = { backStack.removeLastOrNull() },
+            sceneStrategy = componentDialogStrategy then bottomSheetStrategy then dialogStrategy then singlePaneStrategy,
+            entryDecorators = listOf(
+              rememberSaveableStateHolderNavEntryDecorator(),
+              rememberViewModelStoreNavEntryDecorator(),
+            ),
+            entryProvider = entryProvider {
+              entryBuilders.forEach { builder -> this.builder() }
+            },
+            transitionSpec = {
+              slideInHorizontally(initialOffsetX = { it }) togetherWith
+                slideOutHorizontally(targetOffsetX = { -it })
+            },
+            popTransitionSpec = {
+              slideInHorizontally(initialOffsetX = { -it }) togetherWith
+                slideOutHorizontally(targetOffsetX = { it })
+            },
+            predictivePopTransitionSpec = {
+              slideInHorizontally(initialOffsetX = { -it }) togetherWith
+                slideOutHorizontally(targetOffsetX = { it })
+            },
+          )
+
+          Snackbar(state = snackbarState)
+        }
       }
     }
   }

@@ -21,7 +21,9 @@ android {
 
   defaultConfig {
     buildConfigField("String", "VERSION_NAME", "String.valueOf(\"${libs.versions.versionName.get()}\")")
-    buildConfigField("String", "NAVER_API_CLIENT_ID", "\"${localProperties["NAVER_API_CLIENT_ID"]}\"")
+    localProperties["NAVER_API_CLIENT_ID"]?.let {
+      buildConfigField("String", "NAVER_API_CLIENT_ID", "\"${it}\"")
+    } ?: buildConfigField("String", "NAVER_API_CLIENT_ID", "\"\"")
   }
 
   flavorDimensions.add("api")
