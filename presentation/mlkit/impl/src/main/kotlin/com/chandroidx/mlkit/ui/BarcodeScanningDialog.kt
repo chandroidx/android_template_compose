@@ -23,10 +23,9 @@ import androidx.compose.ui.unit.dp
 import com.chandroidx.mlkit.util.drawRect
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
-import kotlin.collections.getValue
 
 @Composable
-fun BarcodeScanning(
+internal fun BarcodeScanningDialog(
   modifier: Modifier = Modifier,
 ) {
   val detector = remember { BarcodeScanning.getClient() }

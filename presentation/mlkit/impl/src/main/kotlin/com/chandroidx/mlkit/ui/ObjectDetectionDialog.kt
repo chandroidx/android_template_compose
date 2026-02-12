@@ -25,7 +25,7 @@ import com.google.mlkit.vision.objects.ObjectDetection
 import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 
 @Composable
-fun ObjectDetection(
+internal fun ObjectDetectionDialog(
   modifier: Modifier = Modifier,
 ) {
   val options = ObjectDetectorOptions

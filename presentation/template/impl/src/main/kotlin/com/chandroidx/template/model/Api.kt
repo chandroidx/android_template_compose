@@ -9,7 +9,7 @@ import com.deepfine.naver.NaverNavKey
 
 sealed interface Api : Component {
   data object Naver : Api {
-    override val navKey: NavKey = NaverNavKey
+    override val navKey: NavKey = NaverNavKey.Screen
     override val iconResId: Int = R.drawable.ico_naver
     override val textResId: Int = R.string.naver
     override val descriptionResId: Int? = null

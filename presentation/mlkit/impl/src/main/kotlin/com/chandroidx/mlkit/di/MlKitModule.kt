@@ -4,26 +4,17 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import com.chandroidx.core.strategy.ComponentDialogSceneStrategy
-import com.chandroidx.mlkit.BarcodeScanningNavKey
-import com.chandroidx.mlkit.DigitalInkRecognitionNavKey
-import com.chandroidx.mlkit.FaceDetectionNavKey
-import com.chandroidx.mlkit.FaceMeshDetectionNavKey
-import com.chandroidx.mlkit.ImageLabelingNavKey
 import com.chandroidx.mlkit.MlKitNavKey
-import com.chandroidx.mlkit.ObjectDetectionAndTrackingNavKey
-import com.chandroidx.mlkit.PoseDetectionNavKey
-import com.chandroidx.mlkit.SelfieSegmentationNavKey
-import com.chandroidx.mlkit.TextRecognitionNavKey
-import com.chandroidx.mlkit.ui.BarcodeScanning
-import com.chandroidx.mlkit.ui.DigitalInkRecognition
-import com.chandroidx.mlkit.ui.FaceDetection
-import com.chandroidx.mlkit.ui.FaceMeshDetection
-import com.chandroidx.mlkit.ui.ImageLabeling
+import com.chandroidx.mlkit.ui.BarcodeScanningDialog
+import com.chandroidx.mlkit.ui.DigitalInkRecognitionDialog
+import com.chandroidx.mlkit.ui.FaceDetectionDialog
+import com.chandroidx.mlkit.ui.FaceMeshDetectionDialog
+import com.chandroidx.mlkit.ui.ImageLabelingDialog
 import com.chandroidx.mlkit.ui.MlKitScreen
-import com.chandroidx.mlkit.ui.ObjectDetection
-import com.chandroidx.mlkit.ui.PoseDetection
-import com.chandroidx.mlkit.ui.SelfieSegmentation
-import com.chandroidx.mlkit.ui.TextRecognition
+import com.chandroidx.mlkit.ui.ObjectDetectionDialog
+import com.chandroidx.mlkit.ui.PoseDetectionDialog
+import com.chandroidx.mlkit.ui.SelfieSegmentationDialog
+import com.chandroidx.mlkit.ui.TextRecognitionDialog
 import com.chandroidx.mlkit.viewmodel.MlKitViewModel
 import dagger.Module
 import dagger.Provides
@@ -37,7 +28,7 @@ object MlKitModule {
   @IntoSet
   @Provides
   fun provideMlKitEntryBuilder(): EntryProviderScope<NavKey>.() -> Unit = {
-    entry<MlKitNavKey> { key ->
+    entry<MlKitNavKey.Screen> { key ->
       MlKitScreen(
         viewModel = hiltViewModel<MlKitViewModel, MlKitViewModel.Factory> { factory ->
           factory.create(key.api)
@@ -45,58 +36,58 @@ object MlKitModule {
       )
     }
 
-    entry<BarcodeScanningNavKey>(
+    entry<MlKitNavKey.BarcodeScanning>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      BarcodeScanning()
+      BarcodeScanningDialog()
     }
 
-    entry<DigitalInkRecognitionNavKey>(
+    entry<MlKitNavKey.DigitalInkRecognition>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      DigitalInkRecognition()
+      DigitalInkRecognitionDialog()
     }
 
-    entry<FaceDetectionNavKey>(
+    entry<MlKitNavKey.FaceDetection>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      FaceDetection()
+      FaceDetectionDialog()
     }
 
-    entry<FaceMeshDetectionNavKey>(
+    entry<MlKitNavKey.FaceMeshDetection>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      FaceMeshDetection()
+      FaceMeshDetectionDialog()
     }
 
-    entry<ImageLabelingNavKey>(
+    entry<MlKitNavKey.ImageLabeling>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      ImageLabeling()
+      ImageLabelingDialog()
     }
 
-    entry<ObjectDetectionAndTrackingNavKey>(
+    entry<MlKitNavKey.ObjectDetectionAndTracking>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      ObjectDetection()
+      ObjectDetectionDialog()
     }
 
-    entry<PoseDetectionNavKey>(
+    entry<MlKitNavKey.PoseDetection>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      PoseDetection()
+      PoseDetectionDialog()
     }
 
-    entry<SelfieSegmentationNavKey>(
+    entry<MlKitNavKey.SelfieSegmentation>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      SelfieSegmentation()
+      SelfieSegmentationDialog()
     }
 
-    entry<TextRecognitionNavKey>(
+    entry<MlKitNavKey.TextRecognition>(
       metadata = ComponentDialogSceneStrategy.componentDialog(),
     ) {
-      TextRecognition()
+      TextRecognitionDialog()
     }
   }
 }

@@ -29,7 +29,7 @@ import com.google.mlkit.vision.interfaces.Detector
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun CameraPreview(
+internal fun CameraPreview(
   detector: Detector<*>,
   modifier: Modifier = Modifier,
   requireLensFacing: Int = CameraSelector.LENS_FACING_BACK,

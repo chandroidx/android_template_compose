@@ -22,7 +22,7 @@ import com.google.mlkit.vision.pose.PoseLandmark
 import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
 
 @Composable
-fun PoseDetection(
+internal fun PoseDetectionDialog(
   modifier: Modifier = Modifier,
 ) {
   var detectedPose by remember { mutableStateOf<Pose?>(null) }

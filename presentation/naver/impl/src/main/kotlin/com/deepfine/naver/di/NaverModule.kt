@@ -6,7 +6,6 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import com.chandroidx.core.strategy.ComponentDialogSceneStrategy
 import com.deepfine.naver.NaverNavKey
-import com.deepfine.naver.SpeechRecognitionNavKey
 import com.deepfine.naver.ui.NaverScreen
 import com.deepfine.naver.ui.SpeechRecognitionDialog
 import dagger.Module
@@ -21,11 +20,11 @@ object NaverModule {
   @IntoSet
   @Provides
   fun provideNaverEntryBuilder(): EntryProviderScope<NavKey>.() -> Unit = {
-    entry<NaverNavKey> {
+    entry<NaverNavKey.Screen> {
       NaverScreen(viewModel = hiltViewModel())
     }
 
-    entry<SpeechRecognitionNavKey>(
+    entry<NaverNavKey.SpeechRecognition>(
       metadata = ComponentDialogSceneStrategy.componentDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false, dismissOnClickOutside = false),
       ),

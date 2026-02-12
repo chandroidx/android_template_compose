@@ -27,7 +27,7 @@ import com.google.mlkit.vision.segmentation.SegmentationMask
 import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
 
 @Composable
-fun SelfieSegmentation(
+internal fun SelfieSegmentationDialog(
   modifier: Modifier = Modifier,
 ) {
   val options = SelfieSegmenterOptions

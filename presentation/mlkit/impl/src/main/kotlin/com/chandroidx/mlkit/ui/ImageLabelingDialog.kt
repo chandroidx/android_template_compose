@@ -18,7 +18,7 @@ import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 
 @Composable
-fun ImageLabeling(
+internal fun ImageLabelingDialog(
   modifier: Modifier = Modifier,
 ) {
   val labeler = remember { ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS) }

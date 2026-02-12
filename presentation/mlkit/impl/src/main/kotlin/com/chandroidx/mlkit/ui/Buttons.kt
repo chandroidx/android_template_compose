@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.chandroidx.presentation.theme.ApplicationTheme
 
 @Composable
-fun TextButton(
+internal fun TextButton(
   text: String,
   onClick: () -> Unit,
   modifier: Modifier = Modifier,

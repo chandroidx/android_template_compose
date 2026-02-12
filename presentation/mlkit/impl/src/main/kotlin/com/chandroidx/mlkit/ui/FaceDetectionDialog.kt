@@ -19,7 +19,7 @@ import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 
 @Composable
-fun FaceDetection(
+internal fun FaceDetectionDialog(
   modifier: Modifier = Modifier,
 ) {
   val detectedFaces = remember { mutableStateListOf<Face>() }

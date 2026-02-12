@@ -18,7 +18,7 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
 @Composable
-fun TextRecognition(
+internal fun TextRecognitionDialog(
   modifier: Modifier = Modifier,
 ) {
   val detector = remember { TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS) }

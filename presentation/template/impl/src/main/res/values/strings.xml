@@ -12,7 +12,7 @@
   <string name="button_description">Button, IconButton</string>
   <string name="text_field">TextField</string>
   <string name="text_field_description">TextField, OutlinedTextField</string>
-  <string name="check_box">CheckBox</string>
+  <string name="check_box">Checkbox</string>
   <string name="radio_button">RadioButton</string>
   <string name="input_control_switch">Switch</string>
 

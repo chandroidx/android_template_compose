@@ -39,7 +39,7 @@ import com.google.mlkit.vision.digitalink.recognition.Ink
 import kotlin.collections.forEach
 
 @Composable
-fun DigitalInkRecognition(
+internal fun DigitalInkRecognitionDialog(
   modifier: Modifier = Modifier,
 ) {
   val modelIdentifier = remember { DigitalInkRecognitionModelIdentifier.fromLanguageTag("en-US") }

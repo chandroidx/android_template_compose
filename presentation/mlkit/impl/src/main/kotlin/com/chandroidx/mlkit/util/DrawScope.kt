@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 
-fun DrawScope.drawRect(rect: Rect) {
+internal fun DrawScope.drawRect(rect: Rect) {
   drawRect(
     color = Color.Red,
     topLeft = Offset(rect.left.toFloat(), rect.top.toFloat()),
@@ -19,7 +19,7 @@ fun DrawScope.drawRect(rect: Rect) {
   )
 }
 
-fun DrawScope.drawLine(
+internal fun DrawScope.drawLine(
   start: PointF?,
   end: PointF?,
   color: Color = Color.White,
@@ -35,7 +35,7 @@ fun DrawScope.drawLine(
   )
 }
 
-fun DrawScope.drawPoints(
+internal fun DrawScope.drawPoints(
   points: List<PointF>,
   pointColor: Color = Color.White,
   strokeWidth: Float = 2f,
@@ -49,7 +49,7 @@ fun DrawScope.drawPoints(
   )
 }
 
-fun DrawScope.drawPointsWithPolygon(
+internal fun DrawScope.drawPointsWithPolygon(
   points: List<PointF>,
   pointColor: Color = Color.White,
   lineColor: Color = Color.Red,

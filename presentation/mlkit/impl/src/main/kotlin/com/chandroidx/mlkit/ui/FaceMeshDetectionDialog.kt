@@ -19,7 +19,7 @@ import com.google.mlkit.vision.facemesh.FaceMeshDetection
 import com.google.mlkit.vision.facemesh.FaceMeshDetectorOptions
 
 @Composable
-fun FaceMeshDetection(
+internal fun FaceMeshDetectionDialog(
   modifier: Modifier = Modifier,
 ) {
   val detectedFaceMeshes = remember { mutableStateListOf<FaceMesh>() }

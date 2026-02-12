@@ -4,7 +4,10 @@ import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-object NaverNavKey : NavKey
+sealed interface NaverNavKey : NavKey {
+  @Serializable
+  data object Screen : NaverNavKey
 
-@Serializable
-object SpeechRecognitionNavKey : NavKey
+  @Serializable
+  object SpeechRecognition : NaverNavKey
+}
