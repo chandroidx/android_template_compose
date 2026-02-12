@@ -84,7 +84,6 @@ private fun ComponentItem(
     modifier = modifier
       .fillMaxWidth()
       .heightIn(min = 70.dp)
-      .clip(shape = RoundedCornerShape(20.dp))
       .clickable(enabled = isComponentImplemented, onClick = onClick)
       .alpha(if (isComponentImplemented) 1f else 0.5f)
       .padding(horizontal = 15.dp, vertical = 15.dp),
