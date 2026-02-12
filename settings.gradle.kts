@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "mob_android_template_compose"
+rootProject.name = "android_template_compose"
 
 pluginManagement {
   includeBuild("build-logic")
