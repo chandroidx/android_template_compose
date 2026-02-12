@@ -1,5 +1,6 @@
 package com.deepfine.naver.di
 
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
@@ -25,7 +26,9 @@ object NaverModule {
     }
 
     entry<SpeechRecognitionNavKey>(
-      metadata = ComponentDialogSceneStrategy.componentDialog(),
+      metadata = ComponentDialogSceneStrategy.componentDialog(
+        properties = DialogProperties(usePlatformDefaultWidth = false, dismissOnClickOutside = false),
+      ),
     ) {
       SpeechRecognitionDialog()
     }

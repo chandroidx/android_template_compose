@@ -13,6 +13,7 @@ private class ComponentDialogScene<T : Any>(
   override val key: Any,
   override val previousEntries: List<NavEntry<T>>,
   override val overlaidEntries: List<NavEntry<T>>,
+  private val dialogProperties: DialogProperties,
   private val entry: NavEntry<T>,
   private val onBack: () -> Unit,
 ) : OverlayScene<T> {
@@ -21,6 +22,7 @@ private class ComponentDialogScene<T : Any>(
   override val content: @Composable (() -> Unit) = {
     ComponentDialog(
       onDismissRequest = onBack,
+      properties = dialogProperties,
     ) {
       entry.Content()
     }
@@ -37,13 +39,17 @@ class ComponentDialogSceneStrategy<T : Any> : SceneStrategy<T> {
         previousEntries = entries.dropLast(1),
         overlaidEntries = entries.dropLast(1),
         entry = lastEntry,
+        dialogProperties = properties,
         onBack = onBack,
       )
     }
   }
 
   companion object {
-    fun componentDialog(): Map<String, Any> = mapOf(COMPONENT_DIALOG_KEY to DialogProperties())
+    fun componentDialog(
+      properties: DialogProperties = DialogProperties(usePlatformDefaultWidth = false),
+    ): Map<String, Any> =
+      mapOf(COMPONENT_DIALOG_KEY to properties)
 
     internal const val COMPONENT_DIALOG_KEY = "bottomSheet"
   }

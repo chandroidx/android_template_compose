@@ -1,6 +1,7 @@
 package com.deepfine.naver.ui
 
 import android.Manifest
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.chandroidx.buildconfig.BuildConfig
+import com.chandroidx.navigator.LocalNavigator
 import com.deepfine.naver.util.SimpleRecognitionListener
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -35,9 +37,21 @@ import com.naver.speech.clientapi.SpeechRecognizer
 @Composable
 fun SpeechRecognitionDialog() {
   val context = LocalContext.current
-  val recognizer = remember { SpeechRecognizer(context, BuildConfig.NAVER_API_CLIENT_ID) }
+  val navigator = LocalNavigator.current
 
+  val recognizer = remember { SpeechRecognizer(context, BuildConfig.NAVER_API_CLIENT_ID) }
   val recordAudioPermissionState = rememberPermissionState(Manifest.permission.RECORD_AUDIO)
+
+  var navigateUpRequested by remember { mutableStateOf(false) }
+
+  BackHandler {
+    if (!recognizer.isRunning) {
+      navigator.navigateUp()
+    } else {
+      navigateUpRequested = true
+      recognizer.stop()
+    }
+  }
 
   if (recordAudioPermissionState.status.isGranted) {
     var result by remember { mutableStateOf("") }
@@ -47,6 +61,12 @@ fun SpeechRecognitionDialog() {
       recognizer.initialize()
       recognizer.setSpeechRecognitionListener(
         object : SimpleRecognitionListener() {
+          override fun onInactive() {
+            if (navigateUpRequested) {
+              navigator.navigateUp()
+            }
+          }
+
           override fun onRecord(speech: ShortArray?) {
             audio = speech
           }
@@ -72,6 +92,8 @@ fun SpeechRecognitionDialog() {
       )
 
       onDispose {
+        recognizer.setSpeechRecognitionListener(null)
+        recognizer.cancel()
         recognizer.release()
       }
     }

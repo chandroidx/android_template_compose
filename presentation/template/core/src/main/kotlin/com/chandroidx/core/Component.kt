@@ -39,12 +39,13 @@ interface Component {
 @Composable
 fun ComponentDialog(
   onDismissRequest: () -> Unit,
+  properties: DialogProperties,
   content: @Composable () -> Unit,
 ) {
   ApplicationTheme {
     Dialog(
       onDismissRequest = onDismissRequest,
-      properties = DialogProperties(usePlatformDefaultWidth = false),
+      properties = properties,
     ) {
       Box(modifier = Modifier.padding(20.dp)) {
         Box(
