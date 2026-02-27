@@ -18,7 +18,7 @@ class PresentationConventionPlugin : AndroidConvention, HiltConvention, ComposeC
       }
       dependencies {
         add("implementation", project(":navigator"))
-        add("implementation", project(":data:api"))
+        add("implementation", project(":domain"))
       }
     }
   }

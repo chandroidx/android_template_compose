@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-  implementation(projects.data.api)
+  implementation(projects.domain)
   implementation(projects.data.network.api)
 
   implementation(libs.kotlinx.serialization)

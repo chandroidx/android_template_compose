@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-  implementation(projects.data.api)
+  implementation(projects.domain)
 
   implementation(libs.androidx.compose.navigation3.runtime)
   implementation(libs.androidx.compose.navigation3.ui)

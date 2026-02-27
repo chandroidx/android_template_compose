@@ -59,7 +59,7 @@ android {
 
 dependencies {
   implementation(projects.buildconfig)
-  implementation(projects.data.impl)
+  implementation(projects.data)
   implementation(projects.data.network.impl)
 
   implementation(projects.presentation.scheme)
