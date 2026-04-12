@@ -10,7 +10,7 @@ Scalable and maintainable Android application template built with:
 <br>
 
 ## ⚙️ Requirements
-- **Android Studio Otter or newer**
+- **Android Studio Panda or newer**
 - **JDK 17**
 
 <br>
