@@ -53,7 +53,7 @@ class SchemeActivity : ComponentActivity() {
         NavDisplay(
           backStack = backStack,
           onBack = { backStack.removeLastOrNull() },
-          sceneStrategy = bottomSheetStrategy then dialogStrategy then singlePaneStrategy,
+          sceneStrategies = listOf(bottomSheetStrategy, dialogStrategy, singlePaneStrategy),
           entryDecorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator(),
