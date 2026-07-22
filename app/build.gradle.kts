@@ -1,7 +1,9 @@
 plugins {
+  alias(libs.plugins.spotless)
   alias(libs.plugins.android.application)
   alias(libs.plugins.hilt)
   alias(libs.plugins.ksp)
+  alias(libs.plugins.navgraph)
 }
 
 android {
@@ -57,11 +59,15 @@ android {
   }
 }
 
+ksp {
+  arg("navgraph.annotatedOnly", "true")
+}
+
+
 dependencies {
   implementation(projects.buildconfig)
   implementation(projects.data)
   implementation(projects.data.network.impl)
-
   implementation(projects.presentation.scheme)
   implementation(projects.presentation.home.impl)
 

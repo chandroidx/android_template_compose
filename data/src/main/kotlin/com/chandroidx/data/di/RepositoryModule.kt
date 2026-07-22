@@ -1,7 +1,7 @@
 package com.chandroidx.data.di
 
-import com.chandroidx.data.repository.MainRepository
 import com.chandroidx.data.repository.MainRepositoryImpl
+import com.chandroidx.domain.repository.MainRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,6 +1,7 @@
 plugins {
-  alias(libs.plugins.chandroidx.android)
-  alias(libs.plugins.chandroidx.hilt)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.deepfine.android)
+  alias(libs.plugins.deepfine.hilt)
 }
 
 android {
@@ -11,6 +12,5 @@ dependencies {
   compileOnly(projects.buildconfigStub)
   implementation(projects.data.network.api)
 
-  implementation(libs.kotlinx.serialization)
   implementation(libs.bundles.ktor)
 }

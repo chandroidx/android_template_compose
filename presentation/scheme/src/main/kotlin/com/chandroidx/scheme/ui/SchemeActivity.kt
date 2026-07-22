@@ -8,13 +8,13 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.scene.SinglePaneSceneStrategy
@@ -26,6 +26,7 @@ import com.chandroidx.navigator.Navigator
 import com.chandroidx.navigator.rememberResultStore
 import com.chandroidx.presentation.strategy.BottomSheetSceneStrategy
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,7 +41,7 @@ class SchemeActivity : ComponentActivity() {
     enableEdgeToEdge()
 
     setContent {
-      val backStack = remember { mutableStateListOf<NavKey>(HomeNavKey) }
+      val backStack = rememberNavBackStack(HomeNavKey)
 
       val bottomSheetStrategy = remember { BottomSheetSceneStrategy<NavKey>() }
       val dialogStrategy = remember { DialogSceneStrategy<NavKey>() }
@@ -53,11 +54,8 @@ class SchemeActivity : ComponentActivity() {
         NavDisplay(
           backStack = backStack,
           onBack = { backStack.removeLastOrNull() },
-          sceneStrategies = listOf(bottomSheetStrategy, dialogStrategy, singlePaneStrategy),
-          entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator(),
-          ),
+          sceneStrategies = persistentListOf(bottomSheetStrategy, dialogStrategy, singlePaneStrategy),
+          entryDecorators = listOf(rememberSaveableStateHolderNavEntryDecorator(), rememberViewModelStoreNavEntryDecorator()),
           entryProvider = entryProvider {
             entryBuilders.forEach { builder -> this.builder() }
           },

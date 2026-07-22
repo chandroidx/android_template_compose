@@ -80,6 +80,7 @@ obj/
 .idea/codeStyles/codeStyleConfig.xml
 .idea/codeStyles/Project.xml
 .idea/caches/
+.idea/httpRequests/
 .idea/libraries/
 .idea/shelf/
 .idea/workspace.xml
@@ -145,6 +146,19 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# Local AI agents project planning files
+.agents/*
+.claude/*
+.codex/*
+.gemini/*
+.omc/*
+.omo/*
+.omx/*
+.serena/*
+docs/*
+AGENTS.md
+CLAUDE.md
 
 ### AndroidStudio Patch ###
 

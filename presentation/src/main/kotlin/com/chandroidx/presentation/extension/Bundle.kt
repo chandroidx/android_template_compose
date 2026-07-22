@@ -1,4 +1,4 @@
-package com.chandroidx.presentation.extensions
+package com.chandroidx.presentation.extension
 
 import android.os.Build
 import android.os.Bundle

@@ -17,9 +17,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
   internal fun onIntent(intent: HomeIntent) {
     when (intent) {
-      HomeIntent.NavigateToBottomSheet -> _sideEffect.trySend(HomeSideEffect.NavigateToBottomSheet)
-      HomeIntent.NavigateToDialog -> _sideEffect.trySend(HomeSideEffect.NavigateToDialog)
-      HomeIntent.NavigateToSecondScreen -> _sideEffect.trySend(HomeSideEffect.NavigateToSecondScreen)
+      HomeIntent.OnSecondScreenButtonClicked -> _sideEffect.trySend(HomeSideEffect.NavigateToSecondScreen)
     }
   }
 }

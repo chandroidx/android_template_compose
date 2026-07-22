@@ -20,8 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chandroidx.home.BottomSheetNavKey
-import com.chandroidx.home.DialogNavKey
+import com.chandroidx.home.HomeNavKey
 import com.chandroidx.home.SecondNavKey
 import com.chandroidx.home.model.HomeIntent
 import com.chandroidx.home.model.HomeSideEffect
@@ -29,28 +28,35 @@ import com.chandroidx.home.viewmodel.HomeViewModel
 import com.chandroidx.navigator.LocalNavigator
 import com.chandroidx.navigator.LocalResultStore
 import com.chandroidx.presentation.theme.ApplicationTheme
+import com.github.skydoves.navgraph.annotations.NavDestination
+import com.github.skydoves.navgraph.annotations.NavEdge
+import com.github.skydoves.navgraph.annotations.NavGraphRoot
+import com.github.skydoves.navgraph.annotations.NavPreview
 import kotlin.random.Random
 
 @Composable
+@NavGraphRoot
+@NavDestination(route = HomeNavKey::class)
+@NavEdge(to = SecondNavKey::class)
 fun HomeScreen(viewModel: HomeViewModel) {
   val navigator = LocalNavigator.current
   val resultStore = LocalResultStore.current
   val context = LocalContext.current
 
-  val result by resultStore.getResultState<Int?>(resultKey = SecondNavKey.RESULT_KEY)
+  val result by resultStore.getResultState<SecondNavKey.Result>()
 
   LaunchedEffect(result) {
     if (result != null) {
-      Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+      Toast.makeText(context, result!!.value.toString(), Toast.LENGTH_SHORT).show()
     }
+
+    resultStore.removeResult<SecondNavKey.Result>()
   }
 
   LaunchedEffect(Unit) {
     viewModel.sideEffect.collect { sideEffect ->
       when (sideEffect) {
         HomeSideEffect.NavigateToSecondScreen -> navigator.navigate(SecondNavKey(Random.nextInt()))
-        HomeSideEffect.NavigateToBottomSheet -> navigator.navigate(BottomSheetNavKey)
-        HomeSideEffect.NavigateToDialog -> navigator.navigate(DialogNavKey)
       }
     }
   }
@@ -79,21 +85,7 @@ private fun HomeScreen(
         SimpleButton(
           text = "SecondScreen",
           onClick = {
-            onIntent(HomeIntent.NavigateToSecondScreen)
-          },
-        )
-
-        SimpleButton(
-          text = "Dialog",
-          onClick = {
-            onIntent(HomeIntent.NavigateToDialog)
-          },
-        )
-
-        SimpleButton(
-          text = "BottomSheet",
-          onClick = {
-            onIntent(HomeIntent.NavigateToBottomSheet)
+            onIntent(HomeIntent.OnSecondScreenButtonClicked)
           },
         )
       }
@@ -121,8 +113,9 @@ private fun SimpleButton(
   }
 }
 
-@Composable
 @Preview
+@Composable
+@NavPreview(route = HomeNavKey::class)
 private fun HomeScreenPreview() {
   HomeScreen(
     onIntent = {},

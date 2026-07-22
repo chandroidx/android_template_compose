@@ -34,11 +34,14 @@ class NetworkModule {
 
     install(DefaultRequest) {
       url(ApiUrl.builder)
+      header(HttpHeaders.ContentType, ContentType.Application.Json)
     }
 
-    install(Logging) {
-      logger = networkLogger
-      level = LogLevel.ALL
+    if (BuildConfig.FLAVOR == "dev" || BuildConfig.DEBUG) {
+      install(Logging) {
+        logger = networkLogger
+        level = LogLevel.ALL
+      }
     }
 
     install(ContentNegotiation) {
@@ -50,10 +53,6 @@ class NetworkModule {
           encodeDefaults = true
         },
       )
-    }
-
-    install(DefaultRequest) {
-      header(HttpHeaders.ContentType, ContentType.Application.Json)
     }
   }
 

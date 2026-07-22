@@ -1,0 +1,122 @@
+#!/bin/bash
+echo "*********************************************************"
+echo ". Running Spotless Apply... "
+echo "*********************************************************"
+
+# Gather the staged files - to make sure changes are saved only for these files.
+stagedFiles=$(git diff --staged --name-only)
+
+# run spotless apply
+./gradlew spotlessApply --no-parallel
+status=$?
+
+if [ "$status" = 0 ] ; then
+    echo "Static analysis found no problems."
+    # Add staged file changes to git
+    for file in $stagedFiles; do
+      if test -f "$file"; then
+        git add "$file"
+      fi
+    done
+
+    diffOutput=$(git diff --staged --name-only)
+
+    if [ -z "$diffOutput" ]; then
+        echo "*********************************************************"
+        echo "       ********************************************      "
+        echo "            Spotless Apply made no changes."
+        echo "Commit aborted. Make sure your code is properly formatted."
+        echo "       ********************************************      "
+        echo "*********************************************************"
+        exit 1
+    fi
+
+    navGraphDir=".navgraph"
+    navGraphImage="$navGraphDir/nav-graph.png"
+    navGraphBuildImage="./app/build/navgraph/nav-graph.png"
+    readmeFile="README.md"
+
+    rm -f "$navGraphImage" "$navGraphBuildImage"
+
+    ./gradlew :app:exportNavGraphImage
+    status=$?
+
+    if [ "$status" != 0 ] ; then
+        echo "*********************************************************"
+        echo "       ********************************************      "
+        echo 1>&2 "NavGraph export failed."
+        echo "Run nav graph export in your terminal and fix the issue before trying to commit again."
+        echo "       ********************************************      "
+        echo "*********************************************************"
+        exit 1
+    fi
+
+    mkdir -p "$navGraphDir"
+
+    if ! cp "$navGraphBuildImage" "$navGraphImage"; then
+        echo "*********************************************************"
+        echo "       ********************************************      "
+        echo 1>&2 "Failed to copy NavGraph outputs."
+        echo "       ********************************************      "
+        echo "*********************************************************"
+        exit 1
+    fi
+
+    tmpReadme=$(mktemp)
+
+    if ! awk '
+      BEGIN {
+        replacement = "![Navigation graph](.navgraph/nav-graph.png)"
+      }
+      /<!-- TREE_START -->/ {
+        print
+        print replacement
+        inBlock = 1
+        startSeen = 1
+        next
+      }
+      /<!-- TREE_END -->/ {
+        inBlock = 0
+        endSeen = 1
+        print
+        next
+      }
+      !inBlock {
+        print
+      }
+      END {
+        if (!startSeen || !endSeen) {
+          exit 1
+        }
+      }
+    ' "$readmeFile" > "$tmpReadme"; then
+        rm -f "$tmpReadme"
+        echo "*********************************************************"
+        echo "       ********************************************      "
+        echo 1>&2 "Failed to update README project structure block."
+        echo "Make sure README.md has TREE_START and TREE_END markers."
+        echo "       ********************************************      "
+        echo "*********************************************************"
+        exit 1
+    fi
+
+    mv "$tmpReadme" "$readmeFile"
+    git add "$readmeFile" "$navGraphImage"
+
+    echo "*********************************************************"
+    echo "       ********************************************      "
+    echo "                    Spotless Done"
+    echo "       ********************************************      "
+    echo "*********************************************************"
+
+    exit 0
+else
+    echo "*********************************************************"
+    echo "       ********************************************      "
+    echo 1>&2 "Spotless Apply found violations it could not fix."
+    echo "Run spotless apply in your terminal and fix the issues before trying to commit again."
+    echo "       ********************************************      "
+    echo "*********************************************************"
+    #Exit
+    exit 1
+fi

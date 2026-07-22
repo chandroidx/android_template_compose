@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel(assistedFactory = SecondViewModel.Factory::class)
 class SecondViewModel @AssistedInject constructor(
@@ -26,7 +27,7 @@ class SecondViewModel @AssistedInject constructor(
   init {
     viewModelScope.launch {
       while (true) {
-        delay(1000L)
+        delay(1000L.milliseconds)
         _state.update {
           it.copy(value = Random.nextInt())
         }

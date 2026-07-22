@@ -1,0 +1,15 @@
+name: Manage issue for Renovate PR
+
+on:
+  pull_request_target:
+    types: [opened, reopened, closed]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  create-linked-issue:
+    if: ${{ github.event.pull_request.user.login == 'renovate[bot]' }}
+    uses: deepfine/mob_github_workflows_android/.github/workflows/renovate-linked-issue.yml@main

@@ -1,6 +1,6 @@
 plugins {
-  alias(libs.plugins.chandroidx.presentation)
-  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.deepfine.presentation)
 }
 
 android {
@@ -12,6 +12,5 @@ dependencies {
   implementation(projects.presentation.home.api)
 
   implementation(libs.splashScreen)
-  implementation(libs.kotlinx.serialization)
   implementation(libs.androidx.compose.navigation3.viewModel)
 }
