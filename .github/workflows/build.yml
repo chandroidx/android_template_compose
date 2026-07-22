@@ -32,6 +32,10 @@ jobs:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
 
+      - &setup-gradle
+        name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6.2.0
+
       - &prepare-gradle
         name: Prepare Gradle wrapper
         run: |
@@ -47,6 +51,7 @@ jobs:
     steps:
       - *checkout
       - *setup-jdk
+      - *setup-gradle
 
       - &setup-android
         name: Set up Android SDK
@@ -63,6 +68,7 @@ jobs:
     steps:
       - *checkout
       - *setup-jdk
+      - *setup-gradle
       - *setup-android
       - *prepare-gradle
 
