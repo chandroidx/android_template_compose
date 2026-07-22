@@ -10,7 +10,6 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -18,6 +17,7 @@ import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDe
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.scene.SinglePaneSceneStrategy
@@ -33,6 +33,7 @@ import com.chandroidx.presentation.ui.Snackbar
 import com.chandroidx.presentation.ui.rememberSnackbarState
 import com.chandroidx.template.TemplateNavKey
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,7 +48,7 @@ class SchemeActivity : ComponentActivity() {
     enableEdgeToEdge()
 
     setContent {
-      val backStack = remember { mutableStateListOf<NavKey>(TemplateNavKey) }
+      val backStack = rememberNavBackStack(TemplateNavKey)
       val snackbarState = rememberSnackbarState()
       val componentDialogStrategy = remember { ComponentDialogSceneStrategy<NavKey>() }
       val bottomSheetStrategy = remember { BottomSheetSceneStrategy<NavKey>() }
@@ -63,7 +64,12 @@ class SchemeActivity : ComponentActivity() {
           NavDisplay(
             backStack = backStack,
             onBack = { backStack.removeLastOrNull() },
-            sceneStrategies = listOf(componentDialogStrategy, bottomSheetStrategy, dialogStrategy, singlePaneStrategy),
+            sceneStrategies = persistentListOf(
+              componentDialogStrategy,
+              bottomSheetStrategy,
+              dialogStrategy,
+              singlePaneStrategy,
+            ),
             entryDecorators = listOf(
               rememberSaveableStateHolderNavEntryDecorator(),
               rememberViewModelStoreNavEntryDecorator(),

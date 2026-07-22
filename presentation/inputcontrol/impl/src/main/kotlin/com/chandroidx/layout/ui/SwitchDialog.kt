@@ -8,8 +8,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.chandroidx.inputcontrol.InputControlNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 
 @Composable
+@NavDestination(route = InputControlNavKey.Switch::class)
 internal fun SwitchDialog() {
   var checked by remember { mutableStateOf(false) }
 

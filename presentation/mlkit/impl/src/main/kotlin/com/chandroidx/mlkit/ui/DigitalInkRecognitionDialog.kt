@@ -29,6 +29,8 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.chandroidx.mlkit.MlKitNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognition
@@ -39,6 +41,7 @@ import com.google.mlkit.vision.digitalink.recognition.Ink
 import kotlin.collections.forEach
 
 @Composable
+@NavDestination(route = MlKitNavKey.DigitalInkRecognition::class)
 internal fun DigitalInkRecognitionDialog(
   modifier: Modifier = Modifier,
 ) {

@@ -7,8 +7,7 @@ echo "*********************************************************"
 stagedFiles=$(git diff --staged --name-only)
 
 # run spotless apply
-./gradlew spotlessApply
-
+./gradlew spotlessApply --no-parallel
 status=$?
 
 if [ "$status" = 0 ] ; then
@@ -16,7 +15,7 @@ if [ "$status" = 0 ] ; then
     # Add staged file changes to git
     for file in $stagedFiles; do
       if test -f "$file"; then
-        git add $file
+        git add "$file"
       fi
     done
 
@@ -31,6 +30,78 @@ if [ "$status" = 0 ] ; then
         echo "*********************************************************"
         exit 1
     fi
+
+    navGraphDir=".navgraph"
+    navGraphImage="$navGraphDir/nav-graph.png"
+    navGraphBuildImage="./app/build/navgraph/nav-graph.png"
+    readmeFile="README.md"
+
+    rm -f "$navGraphImage" "$navGraphBuildImage"
+
+    ./gradlew :app:exportNavGraphImage
+    status=$?
+
+    if [ "$status" != 0 ] ; then
+        echo "*********************************************************"
+        echo "       ********************************************      "
+        echo 1>&2 "NavGraph export failed."
+        echo "Run nav graph export in your terminal and fix the issue before trying to commit again."
+        echo "       ********************************************      "
+        echo "*********************************************************"
+        exit 1
+    fi
+
+    mkdir -p "$navGraphDir"
+
+    if ! cp "$navGraphBuildImage" "$navGraphImage"; then
+        echo "*********************************************************"
+        echo "       ********************************************      "
+        echo 1>&2 "Failed to copy NavGraph outputs."
+        echo "       ********************************************      "
+        echo "*********************************************************"
+        exit 1
+    fi
+
+    tmpReadme=$(mktemp)
+
+    if ! awk '
+      BEGIN {
+        replacement = "![Navigation graph](.navgraph/nav-graph.png)"
+      }
+      /<!-- TREE_START -->/ {
+        print
+        print replacement
+        inBlock = 1
+        startSeen = 1
+        next
+      }
+      /<!-- TREE_END -->/ {
+        inBlock = 0
+        endSeen = 1
+        print
+        next
+      }
+      !inBlock {
+        print
+      }
+      END {
+        if (!startSeen || !endSeen) {
+          exit 1
+        }
+      }
+    ' "$readmeFile" > "$tmpReadme"; then
+        rm -f "$tmpReadme"
+        echo "*********************************************************"
+        echo "       ********************************************      "
+        echo 1>&2 "Failed to update README project structure block."
+        echo "Make sure README.md has TREE_START and TREE_END markers."
+        echo "       ********************************************      "
+        echo "*********************************************************"
+        exit 1
+    fi
+
+    mv "$tmpReadme" "$readmeFile"
+    git add "$readmeFile" "$navGraphImage"
 
     echo "*********************************************************"
     echo "       ********************************************      "

@@ -1,5 +1,6 @@
 plugins {
-  alias(libs.plugins.chandroidx.jvm)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.deepfine.jvm)
   alias(libs.plugins.kotlinx.serialization)
 }
 

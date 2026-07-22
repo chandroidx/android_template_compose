@@ -14,14 +14,17 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import com.chandroidx.mlkit.MlKitNavKey
 import com.chandroidx.mlkit.util.drawLine
 import com.chandroidx.mlkit.util.drawPoints
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.PoseLandmark
 import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
 
 @Composable
+@NavDestination(route = MlKitNavKey.PoseDetection::class)
 internal fun PoseDetectionDialog(
   modifier: Modifier = Modifier,
 ) {

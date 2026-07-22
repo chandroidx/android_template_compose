@@ -14,10 +14,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.chandroidx.mlkit.MlKitNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
 @Composable
+@NavDestination(route = MlKitNavKey.TextRecognition::class)
 internal fun TextRecognitionDialog(
   modifier: Modifier = Modifier,
 ) {

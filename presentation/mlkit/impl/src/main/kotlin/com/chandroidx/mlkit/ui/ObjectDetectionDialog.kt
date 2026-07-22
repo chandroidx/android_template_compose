@@ -19,12 +19,15 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.chandroidx.mlkit.MlKitNavKey
 import com.chandroidx.mlkit.util.drawRect
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.vision.objects.DetectedObject
 import com.google.mlkit.vision.objects.ObjectDetection
 import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 
 @Composable
+@NavDestination(route = MlKitNavKey.ObjectDetectionAndTracking::class)
 internal fun ObjectDetectionDialog(
   modifier: Modifier = Modifier,
 ) {

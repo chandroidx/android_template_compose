@@ -13,11 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.chandroidx.mlkit.MlKitNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.vision.label.ImageLabel
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 
 @Composable
+@NavDestination(route = MlKitNavKey.ImageLabeling::class)
 internal fun ImageLabelingDialog(
   modifier: Modifier = Modifier,
 ) {

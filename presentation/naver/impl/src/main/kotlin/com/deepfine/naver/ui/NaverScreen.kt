@@ -25,13 +25,18 @@ import com.chandroidx.core.ui.Header
 import com.chandroidx.navigator.LocalNavigator
 import com.chandroidx.presentation.theme.ApplicationTheme
 import com.chandroidx.presentation.ui.LocalSnackbar
+import com.deepfine.naver.NaverNavKey
 import com.deepfine.naver.R
 import com.deepfine.naver.model.NaverIntent
 import com.deepfine.naver.model.NaverSideEffect
 import com.deepfine.naver.model.NaverState
 import com.deepfine.naver.viewmodel.NaverViewModel
+import com.github.skydoves.navgraph.annotations.NavDestination
+import com.github.skydoves.navgraph.annotations.NavEdge
 
 @Composable
+@NavDestination(route = NaverNavKey.Screen::class)
+@NavEdge(to = NaverNavKey.SpeechRecognition::class)
 fun NaverScreen(
   viewModel: NaverViewModel,
 ) {

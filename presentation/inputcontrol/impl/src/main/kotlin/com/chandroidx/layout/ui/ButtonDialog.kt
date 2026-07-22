@@ -6,8 +6,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.chandroidx.inputcontrol.InputControlNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 
 @Composable
+@NavDestination(route = InputControlNavKey.Button::class)
 internal fun ButtonDialog() {
   val context = LocalContext.current
 

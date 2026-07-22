@@ -12,13 +12,16 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.core.graphics.ColorUtils
+import com.chandroidx.mlkit.MlKitNavKey
 import com.chandroidx.mlkit.util.drawPointsWithPolygon
 import com.chandroidx.mlkit.util.drawRect
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 
 @Composable
+@NavDestination(route = MlKitNavKey.FaceDetection::class)
 internal fun FaceDetectionDialog(
   modifier: Modifier = Modifier,
 ) {

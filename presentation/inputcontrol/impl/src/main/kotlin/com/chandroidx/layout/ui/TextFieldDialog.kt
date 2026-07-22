@@ -19,8 +19,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.chandroidx.core.ui.PageDescriptionWrapper
 import com.chandroidx.core.ui.PageIndicator
+import com.chandroidx.inputcontrol.InputControlNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 
 @Composable
+@NavDestination(route = InputControlNavKey.TextField::class)
 internal fun TextFieldDialog() {
   Column(
     modifier = Modifier

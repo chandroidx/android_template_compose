@@ -2,7 +2,8 @@ import java.util.Properties
 import kotlin.apply
 
 plugins {
-  alias(libs.plugins.chandroidx.android)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.deepfine.android)
 }
 
 val localProperties = Properties().apply {
@@ -31,12 +32,12 @@ android {
   productFlavors {
     // 개발계
     create("dev") {
-      buildConfigField("String", "API_URL", project.property("api.url").toString())
+      buildConfigField("String", "API_URL", "\"${project.property("api.url").toString()}\"")
       buildConfigField("String", "FLAVOR", "\"dev\"")
     }
 
     create("prod") {
-      buildConfigField("String", "API_URL", project.property("prod.api.url").toString())
+      buildConfigField("String", "API_URL", "\"${project.property("prod.api.url").toString()}\"")
       buildConfigField("String", "FLAVOR", "\"prod\"")
     }
   }

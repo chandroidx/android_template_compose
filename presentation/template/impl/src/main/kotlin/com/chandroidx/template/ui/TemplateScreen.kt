@@ -20,8 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chandroidx.core.Component
 import com.chandroidx.core.ui.ComponentColumn
+import com.chandroidx.inputcontrol.InputControlNavKey
+import com.chandroidx.layout.LayoutNavKey
+import com.chandroidx.mlkit.MlKitNavKey
 import com.chandroidx.navigator.LocalNavigator
 import com.chandroidx.presentation.theme.ApplicationTheme
+import com.chandroidx.template.TemplateNavKey
 import com.chandroidx.template.model.Api
 import com.chandroidx.template.model.InputControl
 import com.chandroidx.template.model.Layout
@@ -31,9 +35,29 @@ import com.chandroidx.template.model.TemplateSideEffect
 import com.chandroidx.template.model.TemplateState
 import com.chandroidx.template.model.TextAndTypography
 import com.chandroidx.template.viewModel.TemplateViewModel
+import com.chandroidx.textandtypography.TextAndTypographyNavKey
+import com.deepfine.naver.NaverNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
+import com.github.skydoves.navgraph.annotations.NavEdge
+import com.github.skydoves.navgraph.annotations.NavGraphRoot
+import com.github.skydoves.navgraph.annotations.NavPreview
 import kotlinx.collections.immutable.toPersistentList
 
 @Composable
+@NavGraphRoot
+@NavDestination(route = TemplateNavKey::class)
+@NavEdge(to = LayoutNavKey.Box::class)
+@NavEdge(to = LayoutNavKey.Column::class)
+@NavEdge(to = LayoutNavKey.Row::class)
+@NavEdge(to = InputControlNavKey.Button::class)
+@NavEdge(to = InputControlNavKey.Checkbox::class)
+@NavEdge(to = InputControlNavKey.RadioButton::class)
+@NavEdge(to = InputControlNavKey.Switch::class)
+@NavEdge(to = InputControlNavKey.TextField::class)
+@NavEdge(to = TextAndTypographyNavKey.Text::class)
+@NavEdge(to = TextAndTypographyNavKey.AnnotatedString::class)
+@NavEdge(to = MlKitNavKey.Screen::class)
+@NavEdge(to = NaverNavKey.Screen::class)
 fun TemplateScreen(
   viewModel: TemplateViewModel,
 ) {
@@ -115,6 +139,7 @@ private fun TemplateScreen(
 
 @Composable
 @Preview
+@NavPreview(route = TemplateNavKey::class)
 private fun TemplateScreenPreview() {
   ApplicationTheme {
     TemplateScreen(

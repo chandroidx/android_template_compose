@@ -26,9 +26,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.chandroidx.core.ui.PageDescriptionWrapper
 import com.chandroidx.core.ui.PageIndicator
+import com.chandroidx.layout.LayoutNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 import kotlinx.coroutines.launch
 
 @Composable
+@NavDestination(route = LayoutNavKey.Column::class)
 internal fun ColumnDialog() {
   Column(
     modifier = Modifier

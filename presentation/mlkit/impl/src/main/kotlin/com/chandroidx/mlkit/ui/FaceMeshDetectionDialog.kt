@@ -12,13 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
+import com.chandroidx.mlkit.MlKitNavKey
 import com.chandroidx.mlkit.util.drawPointsWithPolygon
 import com.chandroidx.mlkit.util.drawRect
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.vision.facemesh.FaceMesh
 import com.google.mlkit.vision.facemesh.FaceMeshDetection
 import com.google.mlkit.vision.facemesh.FaceMeshDetectorOptions
 
 @Composable
+@NavDestination(route = MlKitNavKey.FaceMeshDetection::class)
 internal fun FaceMeshDetectionDialog(
   modifier: Modifier = Modifier,
 ) {

@@ -78,8 +78,6 @@ class ResultStore {
       mutableStateOf(null)
     } as MutableState<T?>
 
-    removeResult<T>(resultKey)
-
     return result
   }
 

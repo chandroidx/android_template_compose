@@ -2,16 +2,10 @@ package com.chandroidx.network.util
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.ktor.client.plugins.logging.Logger
 import java.io.File
+import java.io.FileOutputStream
 import java.io.PrintWriter
 import javax.inject.Inject
-
-interface NetworkLogger : Logger {
-  companion object {
-    const val LOG_FILE_NAME = "network.log"
-  }
-}
 
 class NetworkLoggerImpl @Inject constructor(
   @param:ApplicationContext private val context: Context,
@@ -22,8 +16,8 @@ class NetworkLoggerImpl @Inject constructor(
 
   override fun log(message: String) {
     try {
-      file.outputStream().use { fos ->
-        PrintWriter(fos).use { writer ->
+      FileOutputStream(file, true).use { outputStream ->
+        PrintWriter(outputStream).use { writer ->
           writer.appendLine(message)
           writer.appendLine("======================================================================================================")
         }

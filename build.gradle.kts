@@ -1,5 +1,5 @@
 plugins {
-  alias(libs.plugins.spotless)
+  alias(libs.plugins.spotless) apply false
   alias(libs.plugins.android.application) apply false
   alias(libs.plugins.android.library) apply false
   alias(libs.plugins.hilt) apply false
@@ -7,62 +7,89 @@ plugins {
   alias(libs.plugins.compose.compiler) apply false
   alias(libs.plugins.kotlin.jvm) apply false
   alias(libs.plugins.kotlinx.serialization) apply false
+  alias(libs.plugins.navgraph) apply false
 }
 
 subprojects {
-  apply(plugin = rootProject.libs.plugins.spotless.get().pluginId)
-  configure<com.diffplug.gradle.spotless.SpotlessExtension> {
-    kotlin {
-      target("**/src/**/*.kt", "**/src/**/*.kts")
-      targetExclude("**/build/**", "**/generated/**")
-      ktlint()
-        .customRuleSets(
-          listOf(libs.spotless.composeRuleset.get().toString()),
-        )
-      trimTrailingWhitespace()
-      endWithNewline()
-    }
-    format("kts") {
-      target("**/*.kts")
-      targetExclude("${layout.buildDirectory}/**/*.kts")
-      trimTrailingWhitespace()
-      endWithNewline()
+  plugins.withId(rootProject.libs.plugins.spotless.get().pluginId) {
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+      kotlin {
+        target("src/**/*.kt", "src/**/*.kts")
+        targetExclude("build/**", "**/build/**", "**/generated/**")
+        ktlint()
+          .customRuleSets(
+            listOf(libs.spotless.composeRuleset.get().toString()),
+          )
+        trimTrailingWhitespace()
+        endWithNewline()
+      }
+      format("kts") {
+        target("*.gradle.kts")
+        targetExclude("build/**", "**/build/**")
+        trimTrailingWhitespace()
+        endWithNewline()
+      }
     }
   }
 }
 
-val addPreCommitGitHookOnBuild by tasks.registering {
-  doLast {
-    println("⚈ ⚈ ⚈ Running Add Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+abstract class InstallGitHookTask : DefaultTask() {
+  @get:InputFile
+  abstract val hookSource: RegularFileProperty
 
-    if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-      providers.exec {
-        commandLine("cmd", "/c", "copy", "/Y", ".scripts\\pre-commit", ".git\\hooks\\pre-commit")
-      }.result.get()
-    } else {
-      providers.exec {
-        commandLine("cp", ".scripts/pre-commit", ".git/hooks")
-      }.result.get()
-      providers.exec {
-        commandLine("chmod", "755", ".git/hooks/pre-commit")
-      }.result.get()
+  @get:OutputFile
+  abstract val hookTarget: RegularFileProperty
+
+  @get:Input
+  abstract val windows: Property<Boolean>
+
+  init {
+    outputs.upToDateWhen { false }
+  }
+
+  @TaskAction
+  fun install() {
+    val sourceFile = hookSource.get().asFile
+    val targetFile = hookTarget.get().asFile
+
+    logger.lifecycle("🤖Running Add Git Hook Scripts on Build")
+
+    targetFile.parentFile.mkdirs()
+    java.nio.file.Files.deleteIfExists(targetFile.toPath())
+    sourceFile.copyTo(targetFile)
+
+    if (!windows.get() && !targetFile.setExecutable(true, false)) {
+      throw GradleException("Failed to make Git hook executable: $targetFile")
     }
 
-    println("✅ Added Pre Commit Git Hook Script.")
+    logger.lifecycle("✅ Git Hook Scripts added.")
   }
 }
+
+val addGitHooksOnBuild = tasks.register<InstallGitHookTask>("addGitHooksOnBuild") {
+  description = "Installs the Git pre-commit hook from .scripts into .git/hooks."
+  hookSource.set(layout.projectDirectory.file(".scripts/pre-commit"))
+  hookTarget.set(layout.projectDirectory.file(".git/hooks/pre-commit"))
+  windows.set(
+    providers.systemProperty("os.name")
+      .map { it.contains("windows", ignoreCase = true) },
+  )
+}
+
 tasks.named("prepareKotlinBuildScriptModel") {
-  dependsOn(addPreCommitGitHookOnBuild)
+  dependsOn(addGitHooksOnBuild)
 }
 
-gradle.projectsEvaluated {
-  allprojects.forEach { p ->
-    val pClean = p.tasks.findByName("clean")
-    if (pClean != null) {
-      p.subprojects.forEach { child ->
-        val childClean = child.tasks.findByName("clean")
-        if (childClean != null) {
-          pClean.dependsOn(childClean)
+allprojects {
+  val parentProject = this
+
+  subprojects {
+    val childProject = this@subprojects
+
+    childProject.plugins.withId("base") {
+      parentProject.plugins.withId("base") {
+        parentProject.tasks.named("clean") {
+          dependsOn(childProject.tasks.named("clean"))
         }
       }
     }

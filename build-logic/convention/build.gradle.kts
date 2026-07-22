@@ -10,6 +10,7 @@ dependencies {
   compileOnly(libs.android.gradlePlugin)
   compileOnly(libs.kotlin.gradlePlugin)
   compileOnly(libs.compose.gradlePlugin)
+  compileOnly(libs.ksp.gradlePlugin)
   compileOnly(libs.spotless.composeRuleset)
 }
 
@@ -38,6 +39,11 @@ gradlePlugin {
     register("ComposePlugin") {
       id = "com.chandroidx.compose.plugin"
       implementationClass = "ComposeConventionPlugin"
+    }
+
+    register("KotestPlugin") {
+      id = "com.chandroidx.kotest.plugin"
+      implementationClass = "KotestConventionPlugin"
     }
   }
 }

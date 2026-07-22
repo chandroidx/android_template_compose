@@ -8,8 +8,11 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import com.chandroidx.inputcontrol.InputControlNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 
 @Composable
+@NavDestination(route = InputControlNavKey.RadioButton::class)
 internal fun RadioButtonDialog() {
   val radioStates = remember { mutableStateListOf(true, false, false) }
   Row(horizontalArrangement = Arrangement.SpaceBetween) {

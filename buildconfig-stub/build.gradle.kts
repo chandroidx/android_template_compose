@@ -1,5 +1,6 @@
 plugins {
-  alias(libs.plugins.chandroidx.android)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.deepfine.android)
 }
 
 android {

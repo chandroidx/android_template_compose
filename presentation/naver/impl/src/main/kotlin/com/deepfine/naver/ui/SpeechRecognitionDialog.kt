@@ -25,7 +25,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.chandroidx.buildconfig.BuildConfig
 import com.chandroidx.navigator.LocalNavigator
+import com.deepfine.naver.NaverNavKey
 import com.deepfine.naver.util.SimpleRecognitionListener
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -35,6 +37,7 @@ import com.naver.speech.clientapi.SpeechRecognizer
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
+@NavDestination(route = NaverNavKey.SpeechRecognition::class)
 fun SpeechRecognitionDialog() {
   val context = LocalContext.current
   val navigator = LocalNavigator.current

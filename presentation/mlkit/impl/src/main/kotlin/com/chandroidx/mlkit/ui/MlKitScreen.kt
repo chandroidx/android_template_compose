@@ -20,6 +20,7 @@ import com.chandroidx.core.Component
 import com.chandroidx.core.ui.ComponentColumn
 import com.chandroidx.core.ui.Header
 import com.chandroidx.mlkit.MlKitApi
+import com.chandroidx.mlkit.MlKitNavKey
 import com.chandroidx.mlkit.R
 import com.chandroidx.mlkit.model.MlKitIntent
 import com.chandroidx.mlkit.model.MlKitSideEffect
@@ -27,8 +28,20 @@ import com.chandroidx.mlkit.model.MlKitState
 import com.chandroidx.mlkit.viewmodel.MlKitViewModel
 import com.chandroidx.navigator.LocalNavigator
 import com.chandroidx.presentation.theme.ApplicationTheme
+import com.github.skydoves.navgraph.annotations.NavDestination
+import com.github.skydoves.navgraph.annotations.NavEdge
 
 @Composable
+@NavDestination(route = MlKitNavKey.Screen::class)
+@NavEdge(to = MlKitNavKey.BarcodeScanning::class)
+@NavEdge(to = MlKitNavKey.DigitalInkRecognition::class)
+@NavEdge(to = MlKitNavKey.FaceDetection::class)
+@NavEdge(to = MlKitNavKey.FaceMeshDetection::class)
+@NavEdge(to = MlKitNavKey.ImageLabeling::class)
+@NavEdge(to = MlKitNavKey.ObjectDetectionAndTracking::class)
+@NavEdge(to = MlKitNavKey.PoseDetection::class)
+@NavEdge(to = MlKitNavKey.SelfieSegmentation::class)
+@NavEdge(to = MlKitNavKey.TextRecognition::class)
 fun MlKitScreen(
   viewModel: MlKitViewModel,
 ) {

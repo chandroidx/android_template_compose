@@ -9,8 +9,11 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import com.chandroidx.textandtypography.TextAndTypographyNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 
 @Composable
+@NavDestination(route = TextAndTypographyNavKey.AnnotatedString::class)
 internal fun AnnotatedStringDialog() {
   Text(
     text = buildAnnotatedString {

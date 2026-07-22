@@ -1,7 +1,8 @@
 
 
 plugins {
-  alias(libs.plugins.chandroidx.presentation)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.deepfine.presentation)
   alias(libs.plugins.kotlinx.serialization)
 }
 

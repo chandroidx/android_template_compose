@@ -22,11 +22,14 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
+import com.chandroidx.mlkit.MlKitNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 import com.google.mlkit.vision.segmentation.Segmentation
 import com.google.mlkit.vision.segmentation.SegmentationMask
 import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
 
 @Composable
+@NavDestination(route = MlKitNavKey.SelfieSegmentation::class)
 internal fun SelfieSegmentationDialog(
   modifier: Modifier = Modifier,
 ) {

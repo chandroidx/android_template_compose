@@ -8,8 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
+import com.chandroidx.layout.LayoutNavKey
+import com.github.skydoves.navgraph.annotations.NavDestination
 
 @Composable
+@NavDestination(route = LayoutNavKey.Box::class)
 internal fun BoxDialog() {
   Box(
     modifier = Modifier
