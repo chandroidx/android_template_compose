@@ -9,7 +9,62 @@ on:
       - develop
   merge_group:
 
+permissions:
+  contents: read
+
+env:
+  JAVA_DISTRIBUTION: zulu
+  JAVA_VERSION: "17"
+
 jobs:
-  call:
-    uses: deepfine/mob_github_workflows_android/.github/workflows/build.yml@main
-    secrets: inherit
+  lint:
+    name: Spotless check
+    runs-on: ubuntu-latest
+    steps:
+      - &checkout
+        name: Check out code
+        uses: actions/checkout@v6
+
+      - &setup-jdk
+        name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - &prepare-gradle
+        name: Prepare Gradle wrapper
+        run: |
+          tr -d '\r' < gradlew > gradlew.tmp && mv gradlew.tmp gradlew
+          chmod +x ./gradlew
+
+      - name: Spotless
+        run: ./gradlew spotlessCheck
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - *checkout
+      - *setup-jdk
+
+      - &setup-android
+        name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - *prepare-gradle
+
+      - name: Test
+        run: ./gradlew test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - *checkout
+      - *setup-jdk
+      - *setup-android
+      - *prepare-gradle
+
+      - name: Build with Gradle
+        run: ./gradlew buildDevDebug
