@@ -10,6 +10,158 @@ permissions:
   pull-requests: write
 
 jobs:
-  create-linked-issue:
+  manage-linked-issue:
     if: ${{ github.event.pull_request.user.login == 'renovate[bot]' }}
-    uses: deepfine/mob_github_workflows_android/.github/workflows/renovate-linked-issue.yml@main
+    runs-on: ubuntu-latest
+    concurrency:
+      group: renovate-linked-issue-${{ github.repository }}-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    steps:
+      - name: Manage linked issue
+        uses: actions/github-script@v9
+        env:
+          ISSUE_LABELS: dependencies
+          ISSUE_TITLE_PREFIX: "[Dependency]"
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.setFailed("This workflow must run from a pull_request_target event.");
+              return;
+            }
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const action = context.payload.action;
+            const marker = `<!-- renovate-linked-pr:${owner}/${repo}#${pr.number} -->`;
+
+            let linkedIssue;
+            for (let page = 1; !linkedIssue; page += 1) {
+              const response = await github.rest.issues.listForRepo({
+                owner,
+                repo,
+                state: "all",
+                per_page: 100,
+                page,
+              });
+
+              linkedIssue = response.data.find((item) =>
+                !item.pull_request && item.body?.includes(marker)
+              );
+
+              if (response.data.length < 100) break;
+            }
+
+            if (action === "closed") {
+              if (!linkedIssue) {
+                core.warning(`No linked issue found for PR #${pr.number}.`);
+                return;
+              }
+
+              if (linkedIssue.state === "open") {
+                await github.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number: linkedIssue.number,
+                  state: "closed",
+                  state_reason: pr.merged ? "completed" : "not_planned",
+                });
+                core.info(`Closed issue #${linkedIssue.number}.`);
+              } else {
+                core.info(`Issue #${linkedIssue.number} is already closed.`);
+              }
+              return;
+            }
+
+            if (!linkedIssue) {
+              const requestedLabels = (process.env.ISSUE_LABELS || "")
+                .split(",")
+                .map((label) => label.trim())
+                .filter(Boolean);
+              const labelsInRepository = await github.paginate(
+                github.rest.issues.listLabelsForRepo,
+                { owner, repo, per_page: 100 }
+              );
+              const existingLabelNames = new Set(
+                labelsInRepository.map((label) => label.name)
+              );
+              const labels = requestedLabels.filter((label) =>
+                existingLabelNames.has(label)
+              );
+              const missingLabels = requestedLabels.filter((label) =>
+                !existingLabelNames.has(label)
+              );
+
+              if (missingLabels.length > 0) {
+                core.warning(`Skipped missing labels: ${missingLabels.join(", ")}`);
+              }
+
+              const prefix = (process.env.ISSUE_TITLE_PREFIX || "").trim();
+              const title = [prefix, pr.title].filter(Boolean).join(" ");
+              const body = [
+                marker,
+                "## Renovate dependency update",
+                "",
+                `- Pull request: #${pr.number}`,
+                `- Branch: \`${pr.head.ref}\``,
+                `- Author: @${pr.user.login}`,
+                "",
+                "This issue is completed automatically when the linked pull request is merged.",
+              ].join("\n");
+
+              const response = await github.rest.issues.create({
+                owner,
+                repo,
+                title,
+                body,
+                labels,
+              });
+              linkedIssue = response.data;
+              core.info(`Created issue #${linkedIssue.number}.`);
+            } else {
+              core.info(`Reusing issue #${linkedIssue.number}.`);
+            }
+
+            if (action === "reopened" && linkedIssue.state === "closed") {
+              await github.rest.issues.update({
+                owner,
+                repo,
+                issue_number: linkedIssue.number,
+                state: "open",
+                state_reason: "reopened",
+              });
+              core.info(`Reopened issue #${linkedIssue.number}.`);
+            }
+
+            const commentMarker = "<!-- renovate-linked-issue-comment -->";
+            const comments = await github.paginate(
+              github.rest.issues.listComments,
+              {
+                owner,
+                repo,
+                issue_number: pr.number,
+                per_page: 100,
+              }
+            );
+            const linkedComment = comments.find((comment) =>
+              comment.body?.includes(commentMarker)
+            );
+
+            if (!linkedComment) {
+              const body = [
+                commentMarker,
+                `Related issue: #${linkedIssue.number}`,
+                "",
+                "The issue will be closed automatically when this pull request is closed.",
+              ].join("\n");
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: pr.number,
+                body,
+              });
+              core.info(`Commented issue #${linkedIssue.number} on PR #${pr.number}.`);
+            } else {
+              core.info(`Linked issue comment already exists on PR #${pr.number}.`);
+            }
