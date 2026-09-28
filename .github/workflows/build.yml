@@ -34,7 +34,7 @@ jobs:
 
       - &setup-gradle
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v6.3.0
+        uses: gradle/actions/setup-gradle@v6.4.0
 
       - &prepare-gradle
         name: Prepare Gradle wrapper
